@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabin Network Flatshare — Pisos para tripulantes</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+:root{
+  --navy:#0b2545; --navy2:#13315c; --gold:#d4a95e; --gold2:#e8c07d;
+  --bg:#f4f6f9; --card:#ffffff; --text:#1c2b3a; --muted:#6b7a8d; --line:#e3e8ef;
+  --ok:#2e8b57; --danger:#c0392b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 16px;text-align:center}
+header.top h1{margin:0 0 4px;font-size:1.5rem;letter-spacing:.3px}
+header.top p{margin:0;color:#cdd9ea;font-size:.9rem}
+.tabs{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:140px;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:600;cursor:pointer;font-size:.92rem;transition:.15s}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-btn:hover{border-color:var(--navy)}
+.subtabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.chip{padding:7px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:.85rem;color:var(--navy2);font-weight:500}
+.chip.active{background:var(--gold);color:#1c2b3a;border-color:var(--gold);font-weight:700}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.filters input,.filters select{padding:8px 10px;border-radius:8px;border:1px solid var(--line);font-size:.85rem;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 3px rgba(11,37,69,.06);display:flex;flex-direction:column}
+.card .photo{height:160px;background:#dde5ef center/cover no-repeat;position:relative;display:flex;align-items:end}
+.card .photo .badge{background:var(--gold);color:#1c2b3a;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;margin:8px}
+.card .body{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card h3{margin:0;font-size:1rem;color:var(--navy)}
+.card .city{font-size:.82rem;color:var(--muted)}
+.card .price{font-weight:700;color:var(--navy);font-size:1.05rem}
+.card .meta{font-size:.78rem;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.card .desc{font-size:.83rem;color:var(--text);opacity:.85;flex:1}
+.card .contact-btn{margin-top:6px;padding:9px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-weight:600;cursor:pointer;font-size:.85rem}
+.card .contact-btn:hover{background:var(--navy2)}
+.empty{text-align:center;padding:40px 10px;color:var(--muted)}
+.form-card{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--line);max-width:640px;margin:0 auto}
+.form-card h2{margin-top:0;color:var(--navy);font-size:1.15rem}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--navy2);margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);font-size:.88rem;font-family:inherit}
+.field textarea{min-height:80px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:.75rem;color:var(--muted);margin-top:2px}
+.photo-drop{border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;font-size:.85rem;color:var(--muted);cursor:pointer}
+.photo-drop.drag{border-color:var(--gold);background:#fff8ec}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.submit-btn{width:100%;padding:12px;border:none;border-radius:10px;background:var(--gold);color:#1c2b3a;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:8px}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+.submit-btn:hover:not(:disabled){background:var(--gold2)}
+.msg{padding:10px 12px;border-radius:8px;font-size:.85rem;margin-top:10px;display:none}
+.msg.ok{display:block;background:#e6f4ea;color:var(--ok);border:1px solid #bfe3cb}
+.msg.err{display:block;background:#fdecea;color:var(--danger);border:1px solid #f3c6c1}
+.turnstile-wrap{margin:14px 0}
+.spinner{border:3px solid #eee;border-top-color:var(--gold);border-radius:50%;width:26px;height:26px;animation:spin .8s linear infinite;margin:30px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.holding-box{background:linear-gradient(135deg,#fff8ec,#fff);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:.85rem;color:var(--navy2)}
+.holding-box b{color:var(--navy)}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:.75rem}
+.type-icon{font-size:.75rem;font-weight:700;letter-spacing:.3px}
+@media(max-width:520px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>🏠 Cabin Network Flatshare</h1>
+  <p>Pisos y habitaciones entre tripulantes · Sin intermediarios</p>
+</header>
+
+<div class="wrap">
+
+  <div class="tabs">
+    <button class="tab-btn active" data-view="browse">🔍 Explorar anuncios</button>
+    <button class="tab-btn" data-view="publish">➕ Publicar anuncio</button>
+  </div>
+
+  <!-- BROWSE VIEW -->
+  <div id="view-browse">
+    <div class="subtabs" id="typeTabs">
+      <div class="chip active" data-type="all">Todos</div>
+      <div class="chip" data-type="piso_completo">🏡 Piso completo</div>
+      <div class="chip" data-type="habitacion_compartida">🛏️ Habitación compartida</div>
+      <div class="chip" data-type="busco_grupo">🤝 Busco compañeros</div>
+    </div>
+
+    <div class="holding-box">
+      <b>¿Buscas gente para formar grupo y alquilar juntos?</b> Usa la pestaña "🤝 Busco compañeros" — publica tu base, fechas y cuántos tripulantes necesitas para cerrar un piso entre todos.
+    </div>
+
+    <div class="filters">
+      <input type="text" id="fCity" placeholder="Ciudad o base (ej. MAD)">
+      <select id="fSort">
+        <option value="recent">Más recientes</option>
+        <option value="price_asc">Precio: menor a mayor</option>
+        <option value="price_desc">Precio: mayor a menor</option>
+      </select>
+    </div>
+
+    <div id="listGrid" class="grid"></div>
+    <div id="listLoading" class="spinner"></div>
+    <div id="listEmpty" class="empty" style="display:none">No hay anuncios activos con esos filtros todavía. ¡Sé el primero en publicar!</div>
+  </div>
+
+  <!-- PUBLISH VIEW -->
+  <div id="view-publish" style="display:none">
+    <div class="form-card">
+      <h2>Publica tu anuncio</h2>
+
+      <div class="field">
+        <label>Tipo de anuncio</label>
+        <select id="pType">
+          <option value="piso_completo">🏡 Alquilo piso completo</option>
+          <option value="habitacion_compartida">🛏️ Comparto habitación / plaza libre</option>
+          <option value="busco_grupo">🤝 Busco compañeros para formar grupo</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Título</label>
+        <input type="text" id="pTitle" maxlength="120" placeholder="Ej: Habitación libre cerca T4, piso de tripulantes">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Ciudad</label>
+          <input type="text" id="pCity" placeholder="Ej: Madrid">
+        </div>
+        <div class="field">
+          <label>Base / Aeropuerto</label>
+          <input type="text" id="pBase" maxlength="4" placeholder="Ej: MAD">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Precio / mes (€)</label>
+          <input type="number" id="pPrice" placeholder="Ej: 450">
+        </div>
+        <div class="field" id="fieldRooms">
+          <label id="lblRooms">Habitaciones/plazas disponibles</label>
+          <input type="number" id="pRooms" placeholder="Ej: 1">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Fecha de entrada</label>
+          <input type="date" id="pMoveIn">
+        </div>
+        <div class="field">
+          <label>Estancia mínima (meses)</label>
+          <input type="number" id="pMinStay" placeholder="Ej: 3">
+        </div>
+      </div>
+
+      <div class="field" id="fieldRoommates" style="display:none">
+        <label>¿Cuántos compañeros más buscas para el grupo?</label>
+        <input type="number" id="pRoommates" placeholder="Ej: 2">
+      </div>
+
+      <div class="field">
+        <label>Descripción</label>
+        <textarea id="pDesc" placeholder="Detalles del piso, ambiente, normas, aerolínea/base de los actuales inquilinos, etc."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Aerolínea (opcional, ayuda a encontrar afinidad)</label>
+        <input type="text" id="pAirline" placeholder="Ej: Air Europa, Ryanair, cualquiera...">
+      </div>
+
+      <div class="field">
+        <label>Fotos (máx. 6)</label>
+        <div class="photo-drop" id="photoDrop">📷 Toca para subir fotos del piso/habitación</div>
+        <input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+        <div class="thumbs" id="photoThumbs"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Tu nombre / alias</label>
+          <input type="text" id="pName" placeholder="Ej: María, TCP">
+        </div>
+        <div class="field">
+          <label>Telegram (@usuario)</label>
+          <input type="text" id="pTelegram" placeholder="@tuusuario">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Email de contacto</label>
+          <input type="email" id="pEmail" placeholder="opcional">
+        </div>
+        <div class="field">
+          <label>Teléfono / WhatsApp</label>
+          <input type="text" id="pPhone" placeholder="opcional">
+        </div>
+      </div>
+      <div class="hint">Da al menos un dato de contacto (Telegram, email o teléfono) para que puedan escribirte.</div>
+
+      <div class="turnstile-wrap">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADthE2yE-vOgkXQJ" data-callback="onTurnstileOk" data-expired-callback="onTurnstileExpired"></div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" disabled>Verifica que no eres un robot para publicar</button>
+      <div class="msg" id="formMsg"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Cabin Network · anuncios entre tripulantes, sin intermediarios ni comisiones · Los datos de contacto se comparten bajo tu responsabilidad</footer>
+
+<script>
+const SUPABASE_URL = "https://ifbpbtyifiuhzyeifhea.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmYnBidHlpZml1aHp5ZWlmaGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjIxNDMsImV4cCI6MjA5MzczODE0M30.CxWKoHsf0yPtJuoWPSaWFv-m-1GXvi2GGo_KHjxicWk";
+const EDGE_FN_URL = SUPABASE_URL + "/functions/v1/flatshare-submit";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ---------- View switching ----------
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const v = btn.dataset.view;
+    document.getElementById("view-browse").style.display = v==="browse" ? "block":"none";
+    document.getElementById("view-publish").style.display = v==="publish" ? "block":"none";
+  });
+});
+
+// ---------- Browse ----------
+let currentType = "all";
+document.querySelectorAll("#typeTabs .chip").forEach(chip=>{
+  chip.addEventListener("click",()=>{
+    document.querySelectorAll("#typeTabs .chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    currentType = chip.dataset.type;
+    loadListings();
+  });
+});
+document.getElementById("fCity").addEventListener("input", debounce(loadListings, 400));
+document.getElementById("fSort").addEventListener("change", loadListings);
+
+function debounce(fn, ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);}}
+
+const TYPE_LABELS = {
+  piso_completo: "🏡 Piso completo",
+  habitacion_compartida: "🛏️ Habitación",
+  busco_grupo: "🤝 Busca grupo"
+};
+
+async function loadListings(){
+  const grid = document.getElementById("listGrid");
+  const loading = document.getElementById("listLoading");
+  const empty = document.getElementById("listEmpty");
+  grid.innerHTML = ""; empty.style.display="none"; loading.style.display="block";
+
+  let q = sb.from("flatshare_listings").select("*").eq("status","active");
+  if(currentType !== "all") q = q.eq("listing_type", currentType);
+  const city = document.getElementById("fCity").value.trim();
+  if(city) q = q.or(`city.ilike.%${city}%,base_airport.ilike.%${city}%`);
+
+  const sort = document.getElementById("fSort").value;
+  if(sort==="price_asc") q = q.order("price_month",{ascending:true, nullsFirst:false});
+  else if(sort==="price_desc") q = q.order("price_month",{ascending:false, nullsFirst:false});
+  else q = q.order("created_at",{ascending:false});
+
+  const {data, error} = await q.limit(60);
+  loading.style.display="none";
+  if(error){ empty.textContent = "Error cargando anuncios."; empty.style.display="block"; return; }
+  if(!data || data.length===0){ empty.style.display="block"; return; }
+
+  data.forEach(item=>grid.appendChild(renderCard(item)));
+}
+
+function renderCard(item){
+  const card = document.createElement("div");
+  card.className="card";
+  const photo = (item.photos && item.photos.length) ? item.photos[0] : "";
+  const priceTxt = item.price_month ? `${item.price_month}€/mes` : "Precio a consultar";
+  let metaBits = [];
+  if(item.listing_type==="busco_grupo" && item.roommates_looking) metaBits.push(`Buscan ${item.roommates_looking} más`);
+  if(item.rooms_available) metaBits.push(`${item.rooms_available} plaza(s) libre(s)`);
+  if(item.move_in_date) metaBits.push("Desde " + item.move_in_date);
+  if(item.base_airport) metaBits.push(item.base_airport);
+
+  card.innerHTML = `
+    <div class="photo" style="background-image:url('${photo}')">
+      <span class="badge">${TYPE_LABELS[item.listing_type]||""}</span>
+    </div>
+    <div class="body">
+      <h3>${escapeHtml(item.title)}</h3>
+      <div class="city">${escapeHtml(item.city)}${item.country && item.country!=="Spain" ? ", "+escapeHtml(item.country):""}</div>
+      <div class="price">${priceTxt}</div>
+      <div class="meta">${metaBits.map(m=>`<span>${escapeHtml(m)}</span>`).join("")}</div>
+      <div class="desc">${escapeHtml((item.description||"").slice(0,120))}${(item.description||"").length>120?"…":""}</div>
+      <button class="contact-btn" data-id="${item.id}">Ver contacto</button>
+    </div>
+  `;
+  card.querySelector(".contact-btn").addEventListener("click", ()=>showContact(item));
+  return card;
+}
+
+function showContact(item){
+  let lines = [];
+  if(item.contact_name) lines.push("Nombre: " + item.contact_name);
+  if(item.contact_telegram) lines.push("Telegram: " + item.contact_telegram);
+  if(item.contact_email) lines.push("Email: " + item.contact_email);
+  if(item.contact_phone) lines.push("Tel/WhatsApp: " + item.contact_phone);
+  if(item.airline_company) lines.push("Aerolínea: " + item.airline_company);
+  if(lines.length===0) lines.push("Sin datos de contacto públicos.");
+  alert(lines.join("\n"));
+}
+
+function escapeHtml(s){
+  return String(s||"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+// ---------- Publish form dynamic fields ----------
+document.getElementById("pType").addEventListener("change", updateFormFields);
+function updateFormFields(){
+  const t = document.getElementById("pType").value;
+  document.getElementById("fieldRoommates").style.display = (t==="busco_grupo") ? "block":"none";
+  document.getElementById("fieldRooms").style.display = (t==="busco_grupo") ? "none":"block";
+  document.getElementById("lblRooms").textContent = t==="piso_completo" ? "Habitaciones disponibles" : "Plazas disponibles";
+}
+updateFormFields();
+
+// ---------- Photo upload ----------
+let uploadedPhotos = [];
+const photoDrop = document.getElementById("photoDrop");
+const photoInput = document.getElementById("photoInput");
+photoDrop.addEventListener("click", ()=>photoInput.click());
+photoInput.addEventListener("change", async (e)=>{
+  const files = Array.from(e.target.files).slice(0, 6 - uploadedPhotos.length);
+  for(const file of files){
+    await uploadPhoto(file);
+  }
+  photoInput.value = "";
+});
+
+async function uploadPhoto(file){
+  if(uploadedPhotos.length >= 6) return;
+  photoDrop.textContent = "Subiendo...";
+  const ext = file.name.split(".").pop();
+  const path = `uploads/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const {data, error} = await sb.storage.from("flatshare-photos").upload(path, file, {cacheControl:"3600", upsert:false});
+  photoDrop.textContent = "📷 Toca para subir fotos del piso/habitación";
+  if(error){ alert("Error subiendo foto: " + error.message); return; }
+  const { data: pub } = sb.storage.from("flatshare-photos").getPublicUrl(path);
+  uploadedPhotos.push(pub.publicUrl);
+  renderThumbs();
+}
+
+function renderThumbs(){
+  const wrap = document.getElementById("photoThumbs");
+  wrap.innerHTML = "";
+  uploadedPhotos.forEach(url=>{
+    const img = document.createElement("img");
+    img.src = url;
+    wrap.appendChild(img);
+  });
+}
+
+// ---------- Turnstile ----------
+let turnstileToken = null;
+window.onTurnstileOk = function(token){
+  turnstileToken = token;
+  document.getElementById("submitBtn").disabled = false;
+  document.getElementById("submitBtn").textContent = "Publicar anuncio";
+};
+window.onTurnstileExpired = function(){
+  turnstileToken = null;
+  document.getElementById("submitBtn").disabled = true;
+  document.getElementById("submitBtn").textContent = "Verifica que no eres un robot para publicar";
+};
+
+// ---------- Submit ----------
+document.getElementById("submitBtn").addEventListener("click", async ()=>{
+  const msg = document.getElementById("formMsg");
+  msg.className="msg"; msg.style.display="none";
+
+  const payload = {
+    turnstile_token: turnstileToken,
+    listing_type: document.getElementById("pType").value,
+    title: document.getElementById("pTitle").value.trim(),
+    description: document.getElementById("pDesc").value.trim(),
+    city: document.getElementById("pCity").value.trim(),
+    base_airport: document.getElementById("pBase").value.trim().toUpperCase(),
+    price_month: document.getElementById("pPrice").value || null,
+    rooms_available: document.getElementById("pRooms").value || null,
+    roommates_looking: document.getElementById("pRoommates").value || null,
+    move_in_date: document.getElementById("pMoveIn").value || null,
+    min_stay_months: document.getElementById("pMinStay").value || null,
+    airline_company: document.getElementById("pAirline").value.trim(),
+    photos: uploadedPhotos,
+    contact_name: document.getElementById("pName").value.trim(),
+    contact_telegram: document.getElementById("pTelegram").value.trim(),
+    contact_email: document.getElementById("pEmail").value.trim(),
+    contact_phone: document.getElementById("pPhone").value.trim(),
+  };
+
+  if(!payload.title || !payload.city){
+    msg.className="msg err"; msg.textContent="Rellena al menos título y ciudad."; msg.style.display="block";
+    return;
+  }
+  if(!payload.contact_telegram && !payload.contact_email && !payload.contact_phone){
+    msg.className="msg err"; msg.textContent="Añade al menos un dato de contacto."; msg.style.display="block";
+    return;
+  }
+  if(!turnstileToken){
+    msg.className="msg err"; msg.textContent="Verifica el captcha primero."; msg.style.display="block";
+    return;
+  }
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true; btn.textContent = "Publicando...";
+
+  try{
+    const resp = await fetch(EDGE_FN_URL, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "apikey": SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify(payload)
+    });
+    const result = await resp.json();
+    if(!resp.ok || result.error){
+      throw new Error(result.error || "Error desconocido");
+    }
+    msg.className="msg ok"; msg.textContent="¡Anuncio publicado! Ya aparece en Explorar."; msg.style.display="block";
+    document.querySelectorAll(".form-card input, .form-card textarea").forEach(el=>el.value="");
+    uploadedPhotos = []; renderThumbs();
+    document.querySelector('.tab-btn[data-view="browse"]').click();
+    loadListings();
+  }catch(err){
+    msg.className="msg err"; msg.textContent="No se pudo publicar: " + err.message; msg.style.display="block";
+    btn.disabled = false; btn.textContent="Publicar anuncio";
+    if(window.turnstile) turnstile.reset();
+    turnstileToken = null;
+  }
+});
+
+// init
+loadListings();
+</script>
+</body>
+</html>
