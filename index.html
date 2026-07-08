@@ -23,127 +23,65 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
-.serif{font-family:'Playfair Display',Georgia,serif}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px 40px}
-
-/* ---------- Header ---------- */
-header.top{
-  background:radial-gradient(ellipse 120% 100% at 50% -10%, #1c3f66 0%, var(--navy) 55%, var(--navy3) 100%);
-  color:#fff;padding:44px 20px 76px;text-align:center;position:relative;overflow:hidden;
-}
-header.top::before{
-  content:"";position:absolute;inset:0;
-  background-image:radial-gradient(circle at 15% 30%, rgba(200,161,91,.14) 0%, transparent 45%),
-                    radial-gradient(circle at 85% 70%, rgba(200,161,91,.1) 0%, transparent 40%);
-  pointer-events:none;
-}
-header.top .eyebrow{
-  display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);
-  border:1px solid rgba(232,192,131,.35);color:var(--gold2);font-size:.72rem;font-weight:700;
-  letter-spacing:1.2px;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:18px;
-  backdrop-filter:blur(4px);position:relative
-}
-header.top h1{margin:0 0 10px;font-size:2.5rem;font-weight:700;letter-spacing:-.5px;position:relative}
+header.top{background:radial-gradient(ellipse 120% 100% at 50% -10%, #1c3f66 0%, var(--navy) 55%, var(--navy3) 100%);color:#fff;padding:44px 20px 76px;text-align:center;position:relative;overflow:hidden}
+header.top .eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(232,192,131,.35);color:var(--gold2);font-size:.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:18px}
+header.top h1{margin:0 0 10px;font-size:2.5rem;font-weight:700;letter-spacing:-.5px}
 header.top h1 span{color:var(--gold2)}
-header.top p{margin:0;color:#c3d1e3;font-size:1.02rem;font-weight:400;max-width:520px;margin:0 auto;position:relative}
-.header-stats{display:flex;justify-content:center;gap:34px;margin-top:26px;position:relative;flex-wrap:wrap}
+header.top p{margin:0 auto;color:#c3d1e3;font-size:1.02rem;max-width:520px}
+.header-stats{display:flex;justify-content:center;gap:34px;margin-top:26px;flex-wrap:wrap}
 .header-stats div{text-align:center}
 .header-stats b{display:block;font-size:1.3rem;color:#fff;font-weight:800}
 .header-stats span{font-size:.72rem;color:#9fb3cb;text-transform:uppercase;letter-spacing:.6px}
-
-/* ---------- Tabs (floating card) ---------- */
-.tabs-card{
-  background:var(--card);border-radius:18px;box-shadow:var(--shadow-lg);
-  margin:-46px auto 26px;max-width:640px;padding:8px;display:flex;gap:6px;position:relative;z-index:5;
-}
-.tab-btn{
-  flex:1;padding:13px 14px;border-radius:12px;border:none;background:transparent;color:var(--muted);
-  font-weight:700;cursor:pointer;font-size:.9rem;transition:.2s ease;font-family:inherit;letter-spacing:.1px
-}
+.tabs-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow-lg);margin:-46px auto 26px;max-width:640px;padding:8px;display:flex;gap:6px;position:relative;z-index:5}
+.tab-btn{flex:1;padding:13px 14px;border-radius:12px;border:none;background:transparent;color:var(--muted);font-weight:700;cursor:pointer;font-size:.9rem;transition:.2s;font-family:inherit}
 .tab-btn.active{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;box-shadow:0 4px 10px rgba(10,32,54,.25)}
 .tab-btn:not(.active):hover{background:var(--bg);color:var(--navy)}
-
 .subtabs{display:flex;gap:9px;margin-bottom:18px;flex-wrap:wrap}
-.chip{padding:9px 17px;border-radius:30px;border:1.5px solid var(--line);background:#fff;cursor:pointer;
-  font-size:.84rem;color:var(--navy2);font-weight:600;transition:.15s;white-space:nowrap}
+.chip{padding:9px 17px;border-radius:30px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:.84rem;color:var(--navy2);font-weight:600;transition:.15s;white-space:nowrap}
 .chip:hover{border-color:var(--gold)}
 .chip.active{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1c1204;border-color:transparent;font-weight:700;box-shadow:0 3px 8px rgba(169,129,63,.35)}
-
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.filters input,.filters select{
-  padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);font-size:.87rem;background:#fff;
-  font-family:inherit;color:var(--text);transition:.15s
-}
+.filters input,.filters select{padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);font-size:.87rem;background:#fff;font-family:inherit;color:var(--text)}
 .filters input:focus,.filters select:focus{outline:none;border-color:var(--gold)}
 .filters input{flex:1;min-width:180px}
-
-.holding-box{
-  background:linear-gradient(120deg,#fff9ec 0%,#fff 60%);border:1px solid #eddab3;border-radius:14px;
-  padding:16px 20px;margin-bottom:20px;font-size:.87rem;color:var(--navy2);display:flex;gap:12px;align-items:flex-start;
-  box-shadow:var(--shadow-sm)
-}
+.holding-box{background:linear-gradient(120deg,#fff9ec 0%,#fff 60%);border:1px solid #eddab3;border-radius:14px;padding:16px 20px;margin-bottom:20px;font-size:.87rem;color:var(--navy2);display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow-sm)}
 .holding-box .icon{font-size:1.3rem;line-height:1}
 .holding-box b{color:var(--navy);font-weight:700}
-
-/* ---------- Grid / Cards ---------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
-.card{
-  background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
-  box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.25s ease;cursor:pointer
-}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.25s;cursor:pointer}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
-.card .photo{
-  height:180px;background:linear-gradient(135deg,#dde5ef,#c8d3e2) center/cover no-repeat;position:relative;
-  display:flex;align-items:flex-start;justify-content:space-between
-}
+.card .photo{height:180px;background:linear-gradient(135deg,#dde5ef,#c8d3e2) center/cover no-repeat;position:relative;display:flex;align-items:flex-start;justify-content:space-between}
 .card .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%, transparent 30%)}
-.card .photo .badge{
-  background:rgba(10,32,54,.85);backdrop-filter:blur(3px);color:#f3e6cb;font-size:.68rem;font-weight:700;
-  letter-spacing:.3px;padding:6px 12px;border-radius:8px;margin:11px;position:relative;z-index:1
-}
-.card .photo .photocount{
-  background:rgba(255,255,255,.9);color:var(--navy);font-size:.68rem;font-weight:700;padding:5px 9px;
-  border-radius:8px;margin:11px;position:relative;z-index:1
-}
+.card .photo .badge{background:rgba(10,32,54,.85);color:#f3e6cb;font-size:.68rem;font-weight:700;padding:6px 12px;border-radius:8px;margin:11px;position:relative;z-index:1}
+.card .photo .photocount{background:rgba(255,255,255,.9);color:var(--navy);font-size:.68rem;font-weight:700;padding:5px 9px;border-radius:8px;margin:11px;position:relative;z-index:1}
 .card .photo .noimg{width:100%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;opacity:.35}
 .card .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;gap:7px}
 .card h3{margin:0;font-size:1.03rem;color:var(--navy);font-weight:700;line-height:1.3}
 .card .city{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:5px}
-.card .price{font-weight:800;color:var(--gold-deep);font-size:1.15rem;font-family:'Playfair Display',serif}
-.card .price small{color:var(--muted);font-weight:500;font-size:.72rem;font-family:'Manrope',sans-serif}
+.card .price{font-weight:800;color:var(--gold-deep);font-size:1.15rem}
+.card .price small{color:var(--muted);font-weight:500;font-size:.72rem}
 .card .meta{font-size:.75rem;color:var(--navy2);display:flex;gap:8px;flex-wrap:wrap}
 .card .meta span{background:#eef2f7;padding:3px 9px;border-radius:6px;font-weight:600}
 .card .desc{font-size:.83rem;color:var(--text);opacity:.75;flex:1;line-height:1.45}
-.card .contact-btn{
-  margin-top:8px;padding:11px;border:none;border-radius:10px;background:var(--navy);color:#fff;font-weight:700;
-  cursor:pointer;font-size:.85rem;transition:.15s;font-family:inherit
-}
+.card .contact-btn{margin-top:8px;padding:11px;border:none;border-radius:10px;background:var(--navy);color:#fff;font-weight:700;cursor:pointer;font-size:.85rem;transition:.15s;font-family:inherit}
 .card .contact-btn:hover{background:var(--gold-deep)}
 .empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:.95rem}
 .empty .big{font-size:2.4rem;margin-bottom:10px;opacity:.5}
-
-/* ---------- Form ---------- */
 .form-card{background:var(--card);border-radius:var(--radius);padding:30px;border:1px solid var(--line);max-width:680px;margin:0 auto;box-shadow:var(--shadow-md)}
-.form-card h2{margin:0 0 4px;color:var(--navy);font-size:1.4rem;font-family:'Playfair Display',serif;font-weight:700}
+.form-card h2{margin:0 0 4px;color:var(--navy);font-size:1.4rem;font-weight:700}
 .form-card .sub{color:var(--muted);font-size:.85rem;margin-bottom:24px}
 .section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--gold-deep);margin:26px 0 12px;display:flex;align-items:center;gap:8px}
 .section-label:first-of-type{margin-top:0}
 .section-label::after{content:"";flex:1;height:1px;background:var(--line)}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:.82rem;font-weight:700;color:var(--navy2);margin-bottom:6px}
-.field input,.field select,.field textarea{
-  width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid var(--line);font-size:.9rem;
-  font-family:inherit;color:var(--text);transition:.15s;background:#fcfdfe
-}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid var(--line);font-size:.9rem;font-family:inherit;color:var(--text);background:#fcfdfe}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:#fff}
 .field textarea{min-height:90px;resize:vertical}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .hint{font-size:.76rem;color:var(--muted);margin-top:4px}
-
-.photo-drop{
-  border:2px dashed #d7c294;border-radius:14px;padding:26px 16px;text-align:center;font-size:.87rem;
-  color:var(--navy2);cursor:pointer;background:linear-gradient(180deg,#fffdf8,#fdf7ea);transition:.2s
-}
+.photo-drop{border:2px dashed #d7c294;border-radius:14px;padding:26px 16px;text-align:center;font-size:.87rem;color:var(--navy2);cursor:pointer;background:linear-gradient(180deg,#fffdf8,#fdf7ea);transition:.2s}
 .photo-drop:hover{border-color:var(--gold);background:#fff8ea}
 .photo-drop.drag{border-color:var(--gold);background:#fff2d6;transform:scale(1.01)}
 .photo-drop .icon{font-size:1.8rem;display:block;margin-bottom:6px}
@@ -151,51 +89,28 @@ header.top p{margin:0;color:#c3d1e3;font-size:1.02rem;font-weight:400;max-width:
 .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .thumb{position:relative;width:78px;height:78px;border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumb .rm{
-  position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(10,32,54,.75);
-  color:#fff;border:none;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1
-}
+.thumb .rm{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(10,32,54,.75);color:#fff;border:none;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .thumb.uploading{display:flex;align-items:center;justify-content:center;background:#f1f4f8}
 .thumb .mini-spin{width:20px;height:20px;border:2px solid #dde3ea;border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
-
-.submit-btn{
-  width:100%;padding:15px;border:none;border-radius:12px;
-  background:linear-gradient(135deg,var(--gold2),var(--gold-deep));color:#22160a;font-weight:800;font-size:.95rem;
-  cursor:pointer;margin-top:14px;transition:.2s;letter-spacing:.2px;font-family:inherit
-}
+.submit-btn{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--gold2),var(--gold-deep));color:#22160a;font-weight:800;font-size:.95rem;cursor:pointer;margin-top:14px;transition:.2s;font-family:inherit}
 .submit-btn:disabled{opacity:.45;cursor:not-allowed}
 .submit-btn:hover:not(:disabled){box-shadow:0 8px 20px rgba(169,129,63,.4);transform:translateY(-1px)}
 .msg{padding:12px 14px;border-radius:10px;font-size:.85rem;margin-top:12px;display:none;font-weight:600}
 .msg.ok{display:block;background:#e6f6ee;color:var(--ok);border:1px solid #b9e6cc}
 .msg.err{display:block;background:#fdecea;color:var(--danger);border:1px solid #f3c6c1}
 .turnstile-wrap{margin:18px 0 4px;display:flex;justify-content:center}
-
 .spinner{border:3px solid #e4e8ee;border-top-color:var(--gold);border-radius:50%;width:30px;height:30px;animation:spin .8s linear infinite;margin:50px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 footer{text-align:center;padding:30px 20px 26px;color:var(--muted);font-size:.78rem}
 footer b{color:var(--navy2)}
-
-/* ---------- Modal (contact + gallery) ---------- */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(10,20,35,.55);backdrop-filter:blur(2px);display:none;
-  align-items:center;justify-content:center;z-index:100;padding:20px
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,20,35,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{
-  background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;
-  box-shadow:var(--shadow-lg);position:relative
-}
-.modal-close{
-  position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(10,32,54,.06);
-  border:none;font-size:1rem;cursor:pointer;color:var(--navy);z-index:2;display:flex;align-items:center;justify-content:center
-}
+.modal{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);position:relative}
+.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(10,32,54,.06);border:none;font-size:1rem;cursor:pointer;color:var(--navy);z-index:2;display:flex;align-items:center;justify-content:center}
 .modal-gallery{position:relative;height:260px;background:#dde5ef}
 .modal-gallery img{width:100%;height:100%;object-fit:cover;display:block}
 .modal-gallery .noimg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:.3}
-.modal-gallery .gnav{
-  position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:1rem;color:var(--navy);display:flex;align-items:center;justify-content:center
-}
+.modal-gallery .gnav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:1rem;color:var(--navy);display:flex;align-items:center;justify-content:center}
 .modal-gallery .gnav.prev{left:12px}
 .modal-gallery .gnav.next{right:12px}
 .modal-gallery .gdots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px}
@@ -203,26 +118,18 @@ footer b{color:var(--navy2)}
 .modal-gallery .gdots span.on{background:#fff}
 .modal-body{padding:24px 26px 28px}
 .modal-body .mtype{display:inline-block;background:#eef2f7;color:var(--navy2);font-size:.7rem;font-weight:700;padding:5px 11px;border-radius:7px;margin-bottom:10px}
-.modal-body h3{margin:0 0 6px;color:var(--navy);font-size:1.25rem;font-family:'Playfair Display',serif}
+.modal-body h3{margin:0 0 6px;color:var(--navy);font-size:1.25rem}
 .modal-body .mprice{font-weight:800;color:var(--gold-deep);font-size:1.2rem;margin-bottom:14px}
 .modal-body .mdesc{font-size:.9rem;color:var(--text);line-height:1.6;margin-bottom:18px;white-space:pre-wrap}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.contact-item{
-  background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.85rem
-}
+.contact-item{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.85rem}
 .contact-item .lbl{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:3px}
 .contact-item .val{color:var(--navy);font-weight:700}
 .contact-item.full{grid-column:1/-1}
-
-@media(max-width:560px){
-  .row2,.contact-grid{grid-template-columns:1fr}
-  header.top h1{font-size:1.9rem}
-  .tabs-card{margin-top:-38px}
-}
+@media(max-width:560px){.row2,.contact-grid{grid-template-columns:1fr}header.top h1{font-size:1.9rem}.tabs-card{margin-top:-38px}}
 </style>
 </head>
 <body>
-
 <header class="top">
   <div class="eyebrow">✈ Cabin Network</div>
   <h1>Pisos entre <span>tripulantes</span></h1>
@@ -233,15 +140,11 @@ footer b{color:var(--navy2)}
     <div><b>0€</b><span>Comisión</span></div>
   </div>
 </header>
-
 <div class="wrap">
-
   <div class="tabs-card">
     <button class="tab-btn active" data-view="browse">🔍 Explorar</button>
     <button class="tab-btn" data-view="publish">✚ Publicar anuncio</button>
   </div>
-
-  <!-- BROWSE VIEW -->
   <div id="view-browse">
     <div class="subtabs" id="typeTabs">
       <div class="chip active" data-type="all">Todos</div>
@@ -249,12 +152,10 @@ footer b{color:var(--navy2)}
       <div class="chip" data-type="habitacion_compartida">🛏️ Habitación compartida</div>
       <div class="chip" data-type="busco_grupo">🤝 Busco compañeros</div>
     </div>
-
     <div class="holding-box">
       <div class="icon">🤝</div>
       <div><b>¿Buscas gente para formar grupo y alquilar juntos?</b> Usa la pestaña "Busco compañeros" — publica tu base, fechas y cuántos tripulantes necesitas para cerrar un piso entre todos. Ideal para quien llega nuevo a una base.</div>
     </div>
-
     <div class="filters">
       <input type="text" id="fCity" placeholder="🔎 Ciudad o base (ej. Madrid, MAD)">
       <select id="fSort">
@@ -263,7 +164,6 @@ footer b{color:var(--navy2)}
         <option value="price_desc">Precio: mayor a menor</option>
       </select>
     </div>
-
     <div id="listGrid" class="grid"></div>
     <div id="listLoading" class="spinner"></div>
     <div id="listEmpty" class="empty" style="display:none">
@@ -271,13 +171,10 @@ footer b{color:var(--navy2)}
       No hay anuncios activos con esos filtros todavía.<br>¡Sé el primero en publicar!
     </div>
   </div>
-
-  <!-- PUBLISH VIEW -->
   <div id="view-publish" style="display:none">
     <div class="form-card">
       <h2>Publica tu anuncio</h2>
       <div class="sub">Gratis, sin comisiones. Verificado con Cloudflare Turnstile para evitar spam.</div>
-
       <div class="section-label">Tipo de anuncio</div>
       <div class="field">
         <select id="pType">
@@ -286,61 +183,29 @@ footer b{color:var(--navy2)}
           <option value="busco_grupo">🤝 Busco compañeros para formar grupo</option>
         </select>
       </div>
-
       <div class="section-label">Detalles</div>
       <div class="field">
         <label>Título</label>
         <input type="text" id="pTitle" maxlength="120" placeholder="Ej: Habitación libre cerca T4, piso de tripulantes">
       </div>
-
       <div class="row2">
-        <div class="field">
-          <label>Ciudad</label>
-          <input type="text" id="pCity" placeholder="Ej: Madrid">
-        </div>
-        <div class="field">
-          <label>Base / Aeropuerto</label>
-          <input type="text" id="pBase" maxlength="4" placeholder="Ej: MAD">
-        </div>
+        <div class="field"><label>Ciudad</label><input type="text" id="pCity" placeholder="Ej: Madrid"></div>
+        <div class="field"><label>Base / Aeropuerto</label><input type="text" id="pBase" maxlength="4" placeholder="Ej: MAD"></div>
       </div>
-
       <div class="row2">
-        <div class="field">
-          <label>Precio / mes (€)</label>
-          <input type="number" id="pPrice" placeholder="Ej: 450">
-        </div>
-        <div class="field" id="fieldRooms">
-          <label id="lblRooms">Habitaciones/plazas disponibles</label>
-          <input type="number" id="pRooms" placeholder="Ej: 1">
-        </div>
+        <div class="field"><label>Precio / mes (€)</label><input type="number" id="pPrice" placeholder="Ej: 450"></div>
+        <div class="field" id="fieldRooms"><label id="lblRooms">Habitaciones/plazas disponibles</label><input type="number" id="pRooms" placeholder="Ej: 1"></div>
       </div>
-
       <div class="row2">
-        <div class="field">
-          <label>Fecha de entrada</label>
-          <input type="date" id="pMoveIn">
-        </div>
-        <div class="field">
-          <label>Estancia mínima (meses)</label>
-          <input type="number" id="pMinStay" placeholder="Ej: 3">
-        </div>
+        <div class="field"><label>Fecha de entrada</label><input type="date" id="pMoveIn"></div>
+        <div class="field"><label>Estancia mínima (meses)</label><input type="number" id="pMinStay" placeholder="Ej: 3"></div>
       </div>
-
       <div class="field" id="fieldRoommates" style="display:none">
         <label>¿Cuántos compañeros más buscas para el grupo?</label>
         <input type="number" id="pRoommates" placeholder="Ej: 2">
       </div>
-
-      <div class="field">
-        <label>Descripción</label>
-        <textarea id="pDesc" placeholder="Detalles del piso, ambiente, normas, aerolínea/base de los actuales inquilinos, etc."></textarea>
-      </div>
-
-      <div class="field">
-        <label>Aerolínea (opcional, ayuda a encontrar afinidad)</label>
-        <input type="text" id="pAirline" placeholder="Ej: Air Europa, Ryanair, cualquiera...">
-      </div>
-
+      <div class="field"><label>Descripción</label><textarea id="pDesc" placeholder="Detalles del piso, ambiente, normas, aerolínea/base de los actuales inquilinos, etc."></textarea></div>
+      <div class="field"><label>Aerolínea (opcional, ayuda a encontrar afinidad)</label><input type="text" id="pAirline" placeholder="Ej: Air Europa, Ryanair, cualquiera..."></div>
       <div class="section-label">Fotos</div>
       <div class="field">
         <div class="photo-drop" id="photoDrop">
@@ -351,45 +216,23 @@ footer b{color:var(--navy2)}
         <input type="file" id="photoInput" accept="image/*" multiple style="display:none">
         <div class="thumbs" id="photoThumbs"></div>
       </div>
-
       <div class="section-label">Contacto</div>
       <div class="row2">
-        <div class="field">
-          <label>Tu nombre / alias</label>
-          <input type="text" id="pName" placeholder="Ej: María, TCP">
-        </div>
-        <div class="field">
-          <label>Telegram (@usuario)</label>
-          <input type="text" id="pTelegram" placeholder="@tuusuario">
-        </div>
+        <div class="field"><label>Tu nombre / alias</label><input type="text" id="pName" placeholder="Ej: María, TCP"></div>
+        <div class="field"><label>Telegram (@usuario)</label><input type="text" id="pTelegram" placeholder="@tuusuario"></div>
       </div>
-
       <div class="row2">
-        <div class="field">
-          <label>Email de contacto</label>
-          <input type="email" id="pEmail" placeholder="opcional">
-        </div>
-        <div class="field">
-          <label>Teléfono / WhatsApp</label>
-          <input type="text" id="pPhone" placeholder="opcional">
-        </div>
+        <div class="field"><label>Email de contacto</label><input type="email" id="pEmail" placeholder="opcional"></div>
+        <div class="field"><label>Teléfono / WhatsApp</label><input type="text" id="pPhone" placeholder="opcional"></div>
       </div>
       <div class="hint">Da al menos un dato de contacto (Telegram, email o teléfono) para que puedan escribirte.</div>
-
-      <div class="turnstile-wrap">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADthE2yE-vOgkXQJ" data-callback="onTurnstileOk" data-expired-callback="onTurnstileExpired"></div>
-      </div>
-
+      <div class="turnstile-wrap"><div class="cf-turnstile" data-sitekey="0x4AAAAAADthE2yE-vOgkXQJ" data-callback="onTurnstileOk" data-expired-callback="onTurnstileExpired"></div></div>
       <button class="submit-btn" id="submitBtn" disabled>Verifica que no eres un robot para publicar</button>
       <div class="msg" id="formMsg"></div>
     </div>
   </div>
-
 </div>
-
 <footer><b>Cabin Network</b> · anuncios entre tripulantes, sin intermediarios ni comisiones · Los datos de contacto se comparten bajo tu responsabilidad</footer>
-
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" id="modalClose">✕</button>
@@ -397,23 +240,239 @@ footer b{color:var(--navy2)}
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
-
 <script>
 const SUPABASE_URL = "https://ifbpbtyifiuhzyeifhea.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmYnBidHlpZml1aHp5ZWlmaGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjIxNDMsImV4cCI6MjA5MzczODE0M30.CxWKoHsf0yPtJuoWPSaWFv-m-1GXvi2GGo_KHjxicWk";
 const EDGE_FN_URL = SUPABASE_URL + "/functions/v1/flatshare-submit";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// ---------- Auto-resize for iframe embed ----------
-function reportHeight(){
-  const h = document.documentElement.scrollHeight;
-  window.parent.postMessage({ type: "pn-resize", height: h }, "*");
-}
+function reportHeight(){var h=document.documentElement.scrollHeight;window.parent.postMessage({type:"pn-resize",height:h},"*");}
 new ResizeObserver(reportHeight).observe(document.body);
 window.addEventListener("load", reportHeight);
 setInterval(reportHeight, 1200);
-
-// ---------- View switching ----------
-document.querySelectorAll(".tab-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".tab-btn").forEach(b=>b.cla
+document.querySelectorAll(".tab-btn").forEach(function(btn){btn.addEventListener("click",function(){document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");var v=btn.dataset.view;document.getElementById("view-browse").style.display=v==="browse"?"block":"none";document.getElementById("view-publish").style.display=v==="publish"?"block":"none";setTimeout(reportHeight,50);});});
+var currentType = "all";
+document.querySelectorAll("#typeTabs .chip").forEach(function(chip){chip.addEventListener("click",function(){document.querySelectorAll("#typeTabs .chip").forEach(function(c){c.classList.remove("active");});chip.classList.add("active");currentType=chip.dataset.type;loadListings();});});
+document.getElementById("fCity").addEventListener("input", debounce(loadListings, 400));
+document.getElementById("fSort").addEventListener("change", loadListings);
+function debounce(fn, ms){var t;return function(){var a=arguments;clearTimeout(t);t=setTimeout(function(){fn.apply(null,a);},ms);};}
+var TYPE_LABELS = {piso_completo:"🏡 Piso completo",habitacion_compartida:"🛏️ Habitación",busco_grupo:"🤝 Busca grupo"};
+async function loadListings(){
+  var grid=document.getElementById("listGrid"), loading=document.getElementById("listLoading"), empty=document.getElementById("listEmpty");
+  grid.innerHTML=""; empty.style.display="none"; loading.style.display="block";
+  var q = sb.from("flatshare_listings").select("*").eq("status","active");
+  if(currentType!=="all") q=q.eq("listing_type",currentType);
+  var city=document.getElementById("fCity").value.trim();
+  if(city) q=q.or("city.ilike.%"+city+"%,base_airport.ilike.%"+city+"%");
+  var sort=document.getElementById("fSort").value;
+  if(sort==="price_asc") q=q.order("price_month",{ascending:true,nullsFirst:false});
+  else if(sort==="price_desc") q=q.order("price_month",{ascending:false,nullsFirst:false});
+  else q=q.order("created_at",{ascending:false});
+  var res=await q.limit(60); var data=res.data, error=res.error;
+  loading.style.display="none";
+  if(error){ empty.innerHTML="Error cargando anuncios."; empty.style.display="block"; reportHeight(); return; }
+  if(!data || data.length===0){ empty.style.display="block"; reportHeight(); return; }
+  data.forEach(function(item){grid.appendChild(renderCard(item));});
+  updateStats(data);
+  reportHeight();
+}
+function updateStats(currentData){
+  document.getElementById("statTotal").textContent = currentData.length + (currentData.length>=60?"+":"");
+  var cities = new Set(currentData.map(function(d){return d.city;}).filter(Boolean));
+  document.getElementById("statCities").textContent = cities.size;
+}
+function renderCard(item){
+  var card=document.createElement("div"); card.className="card";
+  var photos=item.photos||[];
+  var priceTxt = item.price_month ? (item.price_month+"<small>€/mes</small>") : "<small>Precio a consultar</small>";
+  var metaBits=[];
+  if(item.listing_type==="busco_grupo" && item.roommates_looking) metaBits.push("👥 Buscan "+item.roommates_looking+" más");
+  if(item.rooms_available) metaBits.push("🛏 "+item.rooms_available+" libre(s)");
+  if(item.move_in_date) metaBits.push("📅 "+item.move_in_date);
+  if(item.base_airport) metaBits.push("✈ "+item.base_airport);
+  var photoInner = photos.length ? ('<img src="'+photos[0]+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">') : '<div class="noimg">🏠</div>';
+  card.innerHTML =
+    '<div class="photo">'+photoInner+
+      '<span class="badge">'+(TYPE_LABELS[item.listing_type]||"")+'</span>'+
+      (photos.length>1 ? '<span class="photocount">📷 '+photos.length+'</span>' : '')+
+    '</div>'+
+    '<div class="body">'+
+      '<h3>'+escapeHtml(item.title)+'</h3>'+
+      '<div class="city">📍 '+escapeHtml(item.city)+(item.country && item.country!=="Spain" ? ", "+escapeHtml(item.country):"")+'</div>'+
+      '<div class="price">'+priceTxt+'</div>'+
+      '<div class="meta">'+metaBits.map(function(m){return '<span>'+escapeHtml(m)+'</span>';}).join("")+'</div>'+
+      '<div class="desc">'+escapeHtml((item.description||"").slice(0,110))+((item.description||"").length>110?"…":"")+'</div>'+
+      '<button class="contact-btn">Ver detalles y contacto</button>'+
+    '</div>';
+  card.addEventListener("click", function(){openModal(item);});
+  return card;
+}
+function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,function(c){return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];});}
+var modalPhotos=[], modalIdx=0;
+var modalOverlay=document.getElementById("modalOverlay");
+document.getElementById("modalClose").addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", function(e){ if(e.target===modalOverlay) closeModal(); });
+function openModal(item){
+  modalPhotos = item.photos || []; modalIdx=0; renderGallery();
+  var contacts=[
+    {lbl:"Nombre",val:item.contact_name},
+    {lbl:"Telegram",val:item.contact_telegram},
+    {lbl:"Email",val:item.contact_email},
+    {lbl:"Teléfono / WhatsApp",val:item.contact_phone},
+    {lbl:"Aerolínea",val:item.airline_company}
+  ].filter(function(c){return c.val;});
+  var contactHtml = contacts.length===0
+    ? '<div class="contact-item full"><div class="val">Sin datos de contacto públicos.</div></div>'
+    : contacts.map(function(c){return '<div class="contact-item"><div class="lbl">'+c.lbl+'</div><div class="val">'+escapeHtml(c.val)+'</div></div>';}).join("");
+  var metaLine=[];
+  if(item.rooms_available) metaLine.push(item.rooms_available+" plaza(s) libre(s)");
+  if(item.roommates_looking) metaLine.push("buscan "+item.roommates_looking+" compañero(s) más");
+  if(item.move_in_date) metaLine.push("entrada "+item.move_in_date);
+  if(item.min_stay_months) metaLine.push("estancia mín. "+item.min_stay_months+" meses");
+  document.getElementById("modalBody").innerHTML =
+    '<div class="mtype">'+(TYPE_LABELS[item.listing_type]||"")+' · 📍 '+escapeHtml(item.city)+(item.base_airport?" ("+escapeHtml(item.base_airport)+")":"")+'</div>'+
+    '<h3>'+escapeHtml(item.title)+'</h3>'+
+    '<div class="mprice">'+(item.price_month ? item.price_month+"€/mes" : "Precio a consultar")+'</div>'+
+    (metaLine.length ? '<div class="hint" style="margin-bottom:14px">'+metaLine.join(" · ")+'</div>' : '')+
+    '<div class="mdesc">'+escapeHtml(item.description||"Sin descripción adicional.")+'</div>'+
+    '<div class="contact-grid">'+contactHtml+'</div>';
+  modalOverlay.classList.add("open");
+}
+function renderGallery(){
+  var g=document.getElementById("modalGallery");
+  if(modalPhotos.length===0){ g.innerHTML='<div class="noimg">🏠</div>'; return; }
+  g.innerHTML = '<img src="'+modalPhotos[modalIdx]+'" alt="">'+
+    (modalPhotos.length>1 ? '<button class="gnav prev">‹</button><button class="gnav next">›</button><div class="gdots">'+modalPhotos.map(function(_,i){return '<span class="'+(i===modalIdx?'on':'')+'"></span>';}).join("")+'</div>' : '');
+  if(modalPhotos.length>1){
+    g.querySelector(".prev").addEventListener("click", function(e){e.stopPropagation(); modalIdx=(modalIdx-1+modalPhotos.length)%modalPhotos.length; renderGallery();});
+    g.querySelector(".next").addEventListener("click", function(e){e.stopPropagation(); modalIdx=(modalIdx+1)%modalPhotos.length; renderGallery();});
+  }
+}
+function closeModal(){ modalOverlay.classList.remove("open"); }
+document.getElementById("pType").addEventListener("change", updateFormFields);
+function updateFormFields(){
+  var t=document.getElementById("pType").value;
+  document.getElementById("fieldRoommates").style.display = (t==="busco_grupo") ? "block":"none";
+  document.getElementById("fieldRooms").style.display = (t==="busco_grupo") ? "none":"block";
+  document.getElementById("lblRooms").textContent = t==="piso_completo" ? "Habitaciones disponibles" : "Plazas disponibles";
+  reportHeight();
+}
+updateFormFields();
+var uploadedPhotos=[];
+var photoDrop=document.getElementById("photoDrop");
+var photoInput=document.getElementById("photoInput");
+photoDrop.addEventListener("click", function(){photoInput.click();});
+photoInput.addEventListener("change", function(e){ handleFiles(e.target.files); photoInput.value=""; });
+["dragenter","dragover"].forEach(function(ev){photoDrop.addEventListener(ev,function(e){e.preventDefault();photoDrop.classList.add("drag");});});
+["dragleave","drop"].forEach(function(ev){photoDrop.addEventListener(ev,function(e){e.preventDefault();photoDrop.classList.remove("drag");});});
+photoDrop.addEventListener("drop", function(e){ handleFiles(e.dataTransfer.files); });
+function handleFiles(fileList){
+  var current=uploadedPhotos.length;
+  var files=Array.from(fileList).slice(0, 6-current);
+  files.forEach(uploadPhoto);
+}
+async function uploadPhoto(file){
+  if(uploadedPhotos.length>=6) return;
+  if(!file.type.startsWith("image/")) return;
+  var tempId=Math.random().toString(36).slice(2);
+  var entry={tempId:tempId, url:null, uploading:true};
+  uploadedPhotos.push(entry);
+  renderThumbs();
+  var ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+  var path="uploads/"+Date.now()+"_"+tempId+"."+ext;
+  var res = await sb.storage.from("flatshare-photos").upload(path, file, {cacheControl:"3600", upsert:false});
+  if(res.error){
+    uploadedPhotos = uploadedPhotos.filter(function(p){return p.tempId!==tempId;});
+    renderThumbs();
+    alert("Error subiendo foto: " + res.error.message);
+    return;
+  }
+  var pub = sb.storage.from("flatshare-photos").getPublicUrl(path).data;
+  var e = uploadedPhotos.find(function(p){return p.tempId===tempId;});
+  if(e){ e.url = pub.publicUrl; e.uploading = false; }
+  renderThumbs();
+}
+function renderThumbs(){
+  var wrap=document.getElementById("photoThumbs");
+  wrap.innerHTML="";
+  uploadedPhotos.forEach(function(p){
+    var div=document.createElement("div");
+    div.className="thumb"+(p.uploading?" uploading":"");
+    if(p.uploading){ div.innerHTML='<div class="mini-spin"></div>'; }
+    else{
+      div.innerHTML='<img src="'+p.url+'"><button class="rm" title="Quitar">✕</button>';
+      div.querySelector(".rm").addEventListener("click", function(){
+        uploadedPhotos = uploadedPhotos.filter(function(x){return x.tempId!==p.tempId;});
+        renderThumbs();
+      });
+    }
+    wrap.appendChild(div);
+  });
+  reportHeight();
+}
+var turnstileToken=null;
+window.onTurnstileOk=function(token){
+  turnstileToken=token;
+  document.getElementById("submitBtn").disabled=false;
+  document.getElementById("submitBtn").textContent="Publicar anuncio";
+};
+window.onTurnstileExpired=function(){
+  turnstileToken=null;
+  document.getElementById("submitBtn").disabled=true;
+  document.getElementById("submitBtn").textContent="Verifica que no eres un robot para publicar";
+};
+document.getElementById("submitBtn").addEventListener("click", async function(){
+  var msg=document.getElementById("formMsg");
+  msg.className="msg"; msg.style.display="none";
+  if(uploadedPhotos.some(function(p){return p.uploading;})){
+    msg.className="msg err"; msg.textContent="Espera a que terminen de subirse las fotos."; msg.style.display="block"; reportHeight();
+    return;
+  }
+  var payload={
+    turnstile_token: turnstileToken,
+    listing_type: document.getElementById("pType").value,
+    title: document.getElementById("pTitle").value.trim(),
+    description: document.getElementById("pDesc").value.trim(),
+    city: document.getElementById("pCity").value.trim(),
+    base_airport: document.getElementById("pBase").value.trim().toUpperCase(),
+    price_month: document.getElementById("pPrice").value || null,
+    rooms_available: document.getElementById("pRooms").value || null,
+    roommates_looking: document.getElementById("pRoommates").value || null,
+    move_in_date: document.getElementById("pMoveIn").value || null,
+    min_stay_months: document.getElementById("pMinStay").value || null,
+    airline_company: document.getElementById("pAirline").value.trim(),
+    photos: uploadedPhotos.filter(function(p){return p.url;}).map(function(p){return p.url;}),
+    contact_name: document.getElementById("pName").value.trim(),
+    contact_telegram: document.getElementById("pTelegram").value.trim(),
+    contact_email: document.getElementById("pEmail").value.trim(),
+    contact_phone: document.getElementById("pPhone").value.trim()
+  };
+  if(!payload.title || !payload.city){ msg.className="msg err"; msg.textContent="Rellena al menos título y ciudad."; msg.style.display="block"; reportHeight(); return; }
+  if(!payload.contact_telegram && !payload.contact_email && !payload.contact_phone){ msg.className="msg err"; msg.textContent="Añade al menos un dato de contacto."; msg.style.display="block"; reportHeight(); return; }
+  if(!turnstileToken){ msg.className="msg err"; msg.textContent="Verifica el captcha primero."; msg.style.display="block"; reportHeight(); return; }
+  var btn=document.getElementById("submitBtn");
+  btn.disabled=true; btn.textContent="Publicando...";
+  try{
+    var resp = await fetch(EDGE_FN_URL, {
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+SUPABASE_ANON_KEY,"apikey":SUPABASE_ANON_KEY},
+      body: JSON.stringify(payload)
+    });
+    var result = await resp.json();
+    if(!resp.ok || result.error){ throw new Error(result.error || "Error desconocido"); }
+    msg.className="msg ok"; msg.textContent="¡Anuncio publicado! Ya aparece en Explorar."; msg.style.display="block";
+    document.querySelectorAll(".form-card input, .form-card textarea").forEach(function(el){el.value="";});
+    uploadedPhotos=[]; renderThumbs();
+    document.querySelector('.tab-btn[data-view="browse"]').click();
+    loadListings();
+  }catch(err){
+    msg.className="msg err"; msg.textContent="No se pudo publicar: " + err.message; msg.style.display="block";
+    btn.disabled=false; btn.textContent="Publicar anuncio";
+    if(window.turnstile) turnstile.reset();
+    turnstileToken=null;
+  }
+  reportHeight();
+});
+loadListings();
+</script>
+</body>
+</html>
