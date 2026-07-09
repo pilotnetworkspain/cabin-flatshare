@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestionar anuncio - Cabin Network</title>
+<style>
+  html,body{margin:0;padding:0;background:#050308;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;color:#fff;}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;
+    background:radial-gradient(circle at 50% 0%, rgba(157,91,255,.25), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,109,214,.12), transparent 35%), #050308;}
+  .card{max-width:480px;width:100%;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:36px 30px;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .brand{color:#6b7385;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;margin-bottom:18px;text-align:center;}
+  h1{color:#fff;font-size:19px;margin:0 0 4px;text-align:center;}
+  h1.en{font-size:13.5px;color:#8c98ad;font-weight:700;margin:0 0 20px;text-align:center;}
+  .badge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin:0 auto 18px;display:table;}
+  .badge.active{background:rgba(74,222,128,.15);color:#4ade80;}
+  .badge.paused{background:rgba(251,191,36,.15);color:#fbbf24;}
+  .badge.filled{background:rgba(139,92,246,.15);color:#a78bfa;}
+  .badge.expired{background:rgba(255,107,107,.15);color:#ff6b6b;}
+  .meta{background:rgba(255,255,255,.04);border-radius:14px;padding:16px 18px;margin-bottom:22px;}
+  .meta p{margin:0 0 6px;font-size:13px;color:#a8b4c8;}
+  .meta p b{color:#fff;}
+  .actions{display:flex;flex-direction:column;gap:10px;}
+  button.act{border:none;border-radius:14px;padding:13px 18px;font-size:13.5px;font-weight:800;cursor:pointer;text-align:left;color:#fff;display:flex;flex-direction:column;gap:2px;}
+  button.act .en{font-weight:600;font-size:11.5px;opacity:.75;}
+  .btn-pause{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)!important;}
+  .btn-reactivate{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3)!important;}
+  .btn-renew{background:rgba(91,157,255,.12);border:1px solid rgba(91,157,255,.3)!important;}
+  .btn-filled{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3)!important;}
+  .btn-delete{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.3)!important;}
+  .spin{width:36px;height:36px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:#5b9dff;animation:sp 0.8s linear infinite;margin:20px auto;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .msg{font-size:13px;color:#a8b4c8;text-align:center;line-height:1.6;}
+  .msg.err{color:#ff8a8a;}
+  .msg.ok{color:#4ade80;}
+  a.btn-link{display:block;text-align:center;margin-top:18px;color:#7fb2ff;font-size:12.5px;text-decoration:none;}
+  .confirm-box{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.3);border-radius:14px;padding:14px;margin-top:10px;text-align:center;}
+  .confirm-box p{font-size:12.5px;color:#ffb3b3;margin:0 0 10px;}
+  .confirm-box .row{display:flex;gap:8px;}
+  .confirm-box button{flex:1;border-radius:10px;border:none;padding:9px;font-size:12.5px;font-weight:800;cursor:pointer;}
+  .confirm-yes{background:#ff6b6b;color:#fff;}
+  .confirm-no{background:rgba(255,255,255,.1);color:#fff;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="brand">Cabin Network</div>
+      <div class="spin"></div>
+      <p class="msg">Cargando tu anuncio... / Loading your listing...</p>
+    </div>
+  </div>
+<script>
+(function(){
+  var API = 'https://ifbpbtyifiuhzyeifhea.supabase.co/functions/v1/flatshare-manage';
+  var params = new URLSearchParams(location.search);
+  var token = params.get('token');
+  var card = document.getElementById('card');
+
+  var STATUS_LABEL = {
+    active: ['Activo', 'Active'],
+    paused: ['Pausado', 'Paused'],
+    filled: ['Ya alquilado', 'Filled'],
+    expired: ['Caducado', 'Expired']
+  };
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function renderError(msg){
+    card.innerHTML = '<div class="brand">Cabin Network</div><p class="msg err">' + esc(msg) + '</p>';
+  }
+
+  function renderLoading(){
+    card.innerHTML = '<div class="brand">Cabin Network</div><div class="spin"></div><p class="msg">Un momento... / One moment...</p>';
+  }
+
+  function renderListing(l){
+    var st = l.status;
+    var label = STATUS_LABEL[st] || [st, st];
+    var html = '';
+    html += '<div class="brand">Cabin Network</div>';
+    html += '<h1>Gestionar tu anuncio</h1>';
+    html += '<h1 class="en">Manage your listing</h1>';
+    html += '<div class="badge ' + st + '">' + label[0] + ' / ' + label[1] + '</div>';
+    html += '<div class="meta">';
+    html += '<p><b>' + esc(l.title) + '</b></p>';
+    html += '<p>' + esc(l.city) + (l.price_month ? ' &middot; ' + l.price_month + ' &euro;/mes' : '') + '</p>';
+    if (l.expires_at) {
+      var d = new Date(l.expires_at);
+      html += '<p>Caduca / Expires: ' + d.toLocaleDateString('es-ES') + '</p>';
+    }
+    html += '</div>';
+    html += '<div class="actions" id="actions">';
+
+    if (st === 'active') {
+      html += '<button class="act btn-pause" data-action="pause">Pausar anuncio<span class="en">Pause listing (hide temporarily)</span></button>';
+      html += '<button class="act btn-filled" data-action="filled">Marcar como alquilado<span class="en">Mark as filled</span></button>';
+      html += '<button class="act btn-renew" data-action="renew">Renovar 60 d\u00edas m\u00e1s<span class="en">Renew for 60 more days</span></button>';
+    } else if (st === 'paused') {
+      html += '<button class="act btn-reactivate" data-action="reactivate">Reactivar anuncio<span class="en">Reactivate listing</span></button>';
+    } else if (st === 'expired') {
+      html += '<button class="act btn-renew" data-action="renew">Renovar y republicar<span class="en">Renew and republish</span></button>';
+    } else if (st === 'filled') {
+      html += '<button class="act btn-reactivate" data-action="reactivate">Volver a publicar<span class="en">Republish listing</span></button>';
+    }
+
+    html += '<button class="act btn-delete" data-action="delete-confirm">Eliminar anuncio<span class="en">Delete listing permanently</span></button>';
+    html += '</div>';
+    html += '<a class="btn-link" href="https://www.cabin-network.com/cabin-crew-appartments">Ir al listado / View listings</a>';
+    card.innerHTML = html;
+
+    document.getElementById('actions').addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      var action = btn.getAttribute('data-action');
+      if (action === 'delete-confirm') {
+        showDeleteConfirm();
+        return;
+      }
+      performAction(action);
+    });
+  }
+
+  function showDeleteConfirm(){
+    var box = document.createElement('div');
+    box.className = 'confirm-box';
+    box.innerHTML = '<p>\u00bfSeguro que quieres eliminarlo? Esta acci\u00f3n no se puede deshacer.<br>Are you sure? This cannot be undone.</p><div class="row"><button class="confirm-no" id="cancelDel">Cancelar / Cancel</button><button class="confirm-yes" id="okDel">S\u00ed, eliminar / Yes, delete</button></div>';
+    document.getElementById('actions').appendChild(box);
+    document.getElementById('cancelDel').addEventListener('click', function(){ box.remove(); });
+    document.getElementById('okDel').addEventListener('click', function(){ performAction('delete'); });
+  }
+
+  function performAction(action){
+    renderLoading();
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, action: action })
+    })
+      .then(function(r){ return r.json().then(function(d){ return {status:r.status, data:d}; }); })
+      .then(function(res){
+        var d = res.data;
+        if (!d.ok) {
+          renderError(d.message || 'No se pudo completar la acci\u00f3n. / Could not complete the action.');
+          return;
+        }
+        if (d.code === 'deleted') {
+          card.innerHTML = '<div class="brand">Cabin Network</div><p class="msg ok">Anuncio eliminado correctamente. / Listing deleted successfully.</p><a class="btn-link" href="https://www.cabin-network.com/cabin-crew-appartments">Ir al listado / View listings</a>';
+          return;
+        }
+        renderListing(d.listing);
+      })
+      .catch(function(){
+        renderError('Error de conexi\u00f3n. Int\u00e9ntalo de nuevo. / Connection error. Please try again.');
+      });
+  }
+
+  if (!token) {
+    renderError('Falta el token de gesti\u00f3n en el enlace. / Missing management token in the link.');
+    return;
+  }
+
+  performAction('get');
+})();
+</script>
+</body>
+</html>
