@@ -373,11 +373,30 @@ new ResizeObserver(reportHeight).observe(document.body);
 window.addEventListener("load", reportHeight);
 setInterval(reportHeight, 1200);
 
+var SORT_OPTS = {
+  es: [["recent","Mas recientes"],["price_asc","Precio: menor a mayor"],["price_desc","Precio: mayor a menor"]],
+  en: [["recent","Newest"],["price_asc","Price: low to high"],["price_desc","Price: high to low"]]
+};
+var TYPE_OPTS = {
+  es: [["piso_completo","\ud83c\udfe1 Alquilo piso completo"],["habitacion_compartida","\ud83d\udecf\ufe0f Comparto habitacion / plaza libre"],["busco_grupo","\ud83e\udd1d Busco companeros para formar grupo"]],
+  en: [["piso_completo","\ud83c\udfe1 Renting a whole flat"],["habitacion_compartida","\ud83d\udecf\ufe0f Sharing a room / spot available"],["busco_grupo","\ud83e\udd1d Looking for flatmates to team up"]]
+};
+function populateSelects(){
+  var sortSel = document.getElementById("fSort");
+  var prevSort = sortSel.value || "recent";
+  sortSel.innerHTML = SORT_OPTS[lang].map(function(o){return \'<option value="\'+o[0]+\'">\'+o[1]+\'</option>\';}).join("");
+  sortSel.value = prevSort;
+  var typeSel = document.getElementById("pType");
+  var prevType = typeSel.value || "piso_completo";
+  typeSel.innerHTML = TYPE_OPTS[lang].map(function(o){return \'<option value="\'+o[0]+\'">\'+o[1]+\'</option>\';}).join("");
+  typeSel.value = prevType;
+}
 function applyLang(){
   document.body.classList.toggle("cn-lang-en", lang==="en");
   document.getElementById("cnFlagEs").classList.toggle("active", lang==="es");
   document.getElementById("cnFlagEn").classList.toggle("active", lang==="en");
   document.querySelectorAll("[data-ph-"+lang+"]").forEach(function(el){ el.placeholder = el.getAttribute("data-ph-"+lang); });
+  populateSelects();
   updateFormFields();
   reportHeight();
 }
