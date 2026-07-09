@@ -260,6 +260,8 @@ footer b { color: var(--cn-soft); }
         <option value="price_desc" class="lang-es">Precio: mayor a menor</option>
         <option value="price_desc" class="lang-en">Price: high to low</option>
       </select>
+      <input type="number" id="fPriceMax" min="0" step="10" data-ph-es="Precio máx. €/mes" data-ph-en="Max price €/month" placeholder="Precio máx. €/mes">
+      <input type="date" id="fMoveBefore" title="Disponible antes de / Available before">
     </div>
 
     <div id="listGrid" class="cn-grid"></div>
@@ -698,6 +700,55 @@ document.getElementById("submitBtn").addEventListener("click", async function(){
 });
 
 loadListings();
+</script>
+<script>
+(function(){
+  function parsePrice(text){
+    var m = text.match(/(\d[\d.,]*)\s*€/);
+    if (!m) return null;
+    return parseFloat(m[1].replace(/\./g,'').replace(',','.'));
+  }
+  function parseCardDate(text){
+    var m = text.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+    if (!m) return null;
+    return new Date(parseInt(m[3],10), parseInt(m[2],10)-1, parseInt(m[1],10));
+  }
+  function applyExtraFilters(){
+    var grid = document.getElementById('listGrid');
+    if (!grid) return;
+    var maxPriceEl = document.getElementById('fPriceMax');
+    var beforeEl = document.getElementById('fMoveBefore');
+    var maxPrice = maxPriceEl && maxPriceEl.value ? parseFloat(maxPriceEl.value) : null;
+    var beforeDate = beforeEl && beforeEl.value ? new Date(beforeEl.value) : null;
+    var cards = grid.children;
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var text = card.innerText || '';
+      var visible = true;
+      if (maxPrice != null) {
+        var price = parsePrice(text);
+        if (price != null && price > maxPrice) visible = false;
+      }
+      if (beforeDate) {
+        var moveDate = parseCardDate(text);
+        if (moveDate && moveDate > beforeDate) visible = false;
+      }
+      card.style.display = visible ? '' : 'none';
+    }
+  }
+  function bindWhenReady(){
+    var priceEl = document.getElementById('fPriceMax');
+    var beforeEl = document.getElementById('fMoveBefore');
+    var grid = document.getElementById('listGrid');
+    if (!priceEl || !beforeEl || !grid) { setTimeout(bindWhenReady, 300); return; }
+    priceEl.addEventListener('input', applyExtraFilters);
+    beforeEl.addEventListener('change', applyExtraFilters);
+    var obs = new MutationObserver(function(){ applyExtraFilters(); });
+    obs.observe(grid, { childList: true });
+    applyExtraFilters();
+  }
+  bindWhenReady();
+})();
 </script>
 </body>
 </html>
