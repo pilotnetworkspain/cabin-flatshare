@@ -367,7 +367,7 @@ var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var lang = (navigator.language||"es").toLowerCase().indexOf("es")===0 ? "es" : "en";
 
-function reportHeight(){ var h=document.documentElement.scrollHeight; window.parent.postMessage({type:"pn-resize",height:h},"*"); }
+function reportHeight(){ var sec=document.querySelector(".cn-section"); var h = sec ? Math.ceil(sec.getBoundingClientRect().bottom) : document.documentElement.scrollHeight; window.parent.postMessage({type:"pn-resize",height:h},"*"); }
 new ResizeObserver(reportHeight).observe(document.body);
 window.addEventListener("load", reportHeight);
 setInterval(reportHeight, 1200);
