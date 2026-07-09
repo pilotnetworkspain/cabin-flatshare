@@ -384,11 +384,11 @@ var TYPE_OPTS = {
 function populateSelects(){
   var sortSel = document.getElementById("fSort");
   var prevSort = sortSel.value || "recent";
-  sortSel.innerHTML = SORT_OPTS[lang].map(function(o){return \'<option value="\'+o[0]+\'">\'+o[1]+\'</option>\';}).join("");
+  sortSel.innerHTML = SORT_OPTS[lang].map(function(o){return "<option value=\"" + o[0] + "\">" + o[1] + "</option>";}).join("");
   sortSel.value = prevSort;
   var typeSel = document.getElementById("pType");
   var prevType = typeSel.value || "piso_completo";
-  typeSel.innerHTML = TYPE_OPTS[lang].map(function(o){return \'<option value="\'+o[0]+\'">\'+o[1]+\'</option>\';}).join("");
+  typeSel.innerHTML = TYPE_OPTS[lang].map(function(o){return "<option value=\"" + o[0] + "\">" + o[1] + "</option>";}).join("");
   typeSel.value = prevType;
 }
 function applyLang(){
