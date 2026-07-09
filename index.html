@@ -89,22 +89,25 @@ body.cn-lang-en .lang-es { display: none; }
 .job-card > * { position: relative; z-index: 2; }
 .jc-photo { height: 170px; background: linear-gradient(135deg,#241a2e,#160f1c) center/cover no-repeat; position: relative; display: flex; align-items: flex-start; justify-content: space-between; border-radius: var(--cn-radius-xl) var(--cn-radius-xl) 0 0; overflow: hidden; }
 .jc-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, transparent 35%); }
-.jc-photo .badge { background: rgba(2,4,10,.75); color: var(--cn-gold); font-size: 10.5px; font-weight: 900; letter-spacing: .4px; text-transform: uppercase; padding: 6px 12px; border-radius: 8px; margin: 11px; position: relative; z-index: 1; }
-.jc-photo .pcount { background: rgba(255,255,255,.92); color: #02040a; font-size: 10.5px; font-weight: 900; padding: 5px 9px; border-radius: 8px; margin: 11px; position: relative; z-index: 1; }
-.jc-photo .noimg { width: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; opacity: .3; }
+.jc-photo .badge { background: rgba(2,4,10,.75); color: var(--cn-gold); font-size: 10.5px; font-weight: 900; letter-spacing: .4px; text-transform: uppercase; padding: 6px 12px; border-radius: 8px; margin: 11px; position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 5px; }
+.jc-photo .pcount { background: rgba(255,255,255,.92); color: #02040a; font-size: 10.5px; font-weight: 900; padding: 5px 9px; border-radius: 8px; margin: 11px; position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 4px; }
+.jc-photo .noimg { width: 100%; display: flex; align-items: center; justify-content: center; opacity: .28; }
 .jc-body { padding: 17px 19px 19px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
 .jc-body h3 { margin: 0; font-size: 1.02rem; font-weight: 800; color: #fff; line-height: 1.3; }
-.jc-city { font-size: .82rem; color: var(--cn-muted); }
+.jc-city { font-size: .82rem; color: var(--cn-muted); display: flex; align-items: center; gap: 5px; }
 .jc-price { font-weight: 900; color: var(--cn-gold); font-size: 1.2rem; }
 .jc-price small { color: var(--cn-muted); font-weight: 600; font-size: .68rem; }
 .jc-meta { font-size: .74rem; color: var(--cn-soft); display: flex; gap: 7px; flex-wrap: wrap; }
-.jc-meta span { background: rgba(255,255,255,.06); padding: 3px 9px; border-radius: 6px; font-weight: 700; }
+.jc-meta span { background: rgba(255,255,255,.06); padding: 3px 9px 3px 7px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 .jc-desc { font-size: .82rem; color: var(--cn-soft); opacity: .8; flex: 1; line-height: 1.45; }
-.jc-btn { margin-top: 8px; padding: 11px; border: none; border-radius: 10px; background: linear-gradient(135deg, var(--cn-pink), #e0508a); color: #fff; font-weight: 800; cursor: pointer; font-size: .82rem; font-family: inherit; transition: transform .15s ease; }
+.jc-btn { margin-top: 8px; padding: 11px; border: none; border-radius: 10px; background: linear-gradient(135deg, var(--cn-pink), #e0508a); color: #fff; font-weight: 800; cursor: pointer; font-size: .82rem; font-family: inherit; transition: transform .15s ease; display: flex; align-items: center; justify-content: center; gap: 7px; }
 .jc-btn:hover { transform: translateY(-1px); }
+.jc-btn .icn { width: 13px; height: 13px; transition: transform .2s ease; }
+.jc-btn:hover .icn { transform: translateX(3px); }
 
 .cn-empty { text-align: center; padding: 60px 20px; color: var(--cn-muted); font-size: .95rem; }
-.cn-empty .big { font-size: 2.4rem; margin-bottom: 10px; opacity: .5; }
+.cn-empty .big { margin-bottom: 14px; opacity: .35; display: flex; justify-content: center; }
+.cn-empty .big .icn { width: 46px; height: 46px; }
 .cn-spinner { border: 3px solid rgba(255,255,255,.1); border-top-color: var(--cn-pink); border-radius: 50%; width: 30px; height: 30px; animation: spin .8s linear infinite; margin: 50px auto; }
 
 .form-card { max-width: 640px; margin: 0 auto; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), rgba(14,6,18,.75); border: 1px solid var(--cn-line); border-radius: var(--cn-radius-xl); padding: 28px; box-shadow: var(--cn-shadow-soft); backdrop-filter: blur(14px); }
@@ -115,18 +118,21 @@ body.cn-lang-en .lang-es { display: none; }
 .section-label::after { content: ""; flex: 1; height: 1px; background: var(--cn-line); }
 .field { margin-bottom: 15px; }
 .field label { display: block; font-size: .78rem; font-weight: 700; color: var(--cn-soft); margin-bottom: 6px; }
+.field label .req { color: var(--cn-pink); }
 .field input, .field select, .field textarea { width: 100%; padding: 11px 13px; border-radius: 10px; border: 1px solid var(--cn-line); font-size: .88rem; font-family: inherit; color: #fff; background: rgba(255,255,255,.045); }
 .field input::placeholder, .field textarea::placeholder { color: var(--cn-muted); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cn-pink); background: rgba(255,255,255,.07); }
 .field select option { background: #0d0a14; }
 .field textarea { min-height: 88px; resize: vertical; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.hint { font-size: .74rem; color: var(--cn-muted); margin-top: 4px; }
+.hint { font-size: .74rem; color: var(--cn-muted); margin-top: 4px; display: flex; align-items: flex-start; gap: 6px; }
+.hint .icn { width: 13px; height: 13px; flex-shrink: 0; margin-top: 1px; }
 
 .photo-drop { border: 2px dashed rgba(255,202,125,.4); border-radius: 14px; padding: 24px 16px; text-align: center; font-size: .85rem; color: var(--cn-soft); cursor: pointer; background: rgba(255,202,125,.04); transition: .2s; }
 .photo-drop:hover { border-color: var(--cn-gold); background: rgba(255,202,125,.08); }
 .photo-drop.drag { border-color: var(--cn-pink); background: rgba(255,111,168,.08); }
-.photo-drop .icon { font-size: 1.7rem; display: block; margin-bottom: 6px; }
+.photo-drop .icon { display: flex; justify-content: center; margin-bottom: 8px; opacity: .85; }
+.photo-drop .icon .icn { width: 26px; height: 26px; }
 .photo-drop small { display: block; color: var(--cn-muted); margin-top: 4px; font-size: .72rem; }
 .thumbs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 13px; }
 .thumb { position: relative; width: 74px; height: 74px; border-radius: 10px; overflow: hidden; border: 1px solid var(--cn-line); }
@@ -138,9 +144,10 @@ body.cn-lang-en .lang-es { display: none; }
 .submit-btn { width: 100%; padding: 15px; border: none; border-radius: 12px; background: linear-gradient(135deg, var(--cn-pink), var(--cn-purple)); color: #fff; font-weight: 900; font-size: .92rem; cursor: pointer; margin-top: 14px; transition: .2s; font-family: inherit; }
 .submit-btn:disabled { opacity: .4; cursor: not-allowed; }
 .submit-btn:hover:not(:disabled) { box-shadow: 0 10px 24px rgba(255,111,168,.35); transform: translateY(-1px); }
-.msg { padding: 12px 14px; border-radius: 10px; font-size: .82rem; margin-top: 12px; display: none; font-weight: 700; }
-.msg.ok { display: block; background: rgba(125,255,186,.12); color: var(--cn-green); border: 1px solid rgba(125,255,186,.3); }
-.msg.err { display: block; background: rgba(255,111,168,.12); color: var(--cn-pink); border: 1px solid rgba(255,111,168,.3); }
+.msg { padding: 12px 14px; border-radius: 10px; font-size: .82rem; margin-top: 12px; display: none; font-weight: 700; align-items: flex-start; gap: 8px; }
+.msg .icn { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+.msg.ok { display: flex; background: rgba(125,255,186,.12); color: var(--cn-green); border: 1px solid rgba(125,255,186,.3); }
+.msg.err { display: flex; background: rgba(255,111,168,.12); color: var(--cn-pink); border: 1px solid rgba(255,111,168,.3); }
 .turnstile-wrap { margin: 16px 0 4px; display: flex; justify-content: center; }
 
 footer { text-align: center; padding: 30px 20px 10px; color: var(--cn-muted); font-size: .74rem; }
@@ -149,26 +156,32 @@ footer b { color: var(--cn-soft); }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
 .modal-overlay.open { display: flex; }
 .modal { background: linear-gradient(180deg, rgba(20,14,26,.98), rgba(10,6,16,.99)); border: 1px solid var(--cn-line); border-radius: 22px; max-width: 540px; width: 100%; max-height: 88vh; overflow-y: auto; box-shadow: var(--cn-shadow); position: relative; }
-.modal-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.08); border: none; font-size: 1rem; cursor: pointer; color: #fff; z-index: 2; display: flex; align-items: center; justify-content: center; }
+.modal-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.08); border: none; cursor: pointer; color: #fff; z-index: 2; display: flex; align-items: center; justify-content: center; }
+.modal-close .icn { width: 15px; height: 15px; }
 .modal-gallery { position: relative; height: 250px; background: #1a1220; }
 .modal-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.modal-gallery .noimg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; opacity: .3; }
-.modal-gallery .gnav { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; color: #02040a; display: flex; align-items: center; justify-content: center; }
+.modal-gallery .noimg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; opacity: .28; }
+.modal-gallery .noimg .icn { width: 44px; height: 44px; }
+.modal-gallery .gnav { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; color: #02040a; display: flex; align-items: center; justify-content: center; }
+.modal-gallery .gnav .icn { width: 16px; height: 16px; }
 .modal-gallery .gnav.prev { left: 12px; }
 .modal-gallery .gnav.next { right: 12px; }
 .modal-gallery .gdots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 5px; }
 .modal-gallery .gdots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.5); }
 .modal-gallery .gdots span.on { background: #fff; }
 .modal-body { padding: 22px 24px 26px; }
-.modal-body .mtype { display: inline-block; background: rgba(255,255,255,.07); color: var(--cn-soft); font-size: .68rem; font-weight: 800; padding: 5px 11px; border-radius: 7px; margin-bottom: 10px; }
+.modal-body .mtype { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.07); color: var(--cn-soft); font-size: .68rem; font-weight: 800; padding: 5px 11px; border-radius: 7px; margin-bottom: 10px; }
 .modal-body h3 { margin: 0 0 6px; color: #fff; font-size: 1.2rem; font-weight: 900; }
 .modal-body .mprice { font-weight: 900; color: var(--cn-gold); font-size: 1.15rem; margin-bottom: 12px; }
 .modal-body .mdesc { font-size: .87rem; color: var(--cn-soft); line-height: 1.6; margin-bottom: 16px; white-space: pre-wrap; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .contact-item { background: rgba(255,255,255,.04); border: 1px solid var(--cn-line); border-radius: 12px; padding: 11px 13px; font-size: .83rem; }
-.contact-item .lbl { color: var(--cn-muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .4px; font-weight: 800; margin-bottom: 3px; }
+.contact-item .lbl { color: var(--cn-muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .4px; font-weight: 800; margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+.contact-item .lbl .icn { width: 11px; height: 11px; }
 .contact-item .val { color: #fff; font-weight: 700; }
 .contact-item.full { grid-column: 1/-1; }
+
+.icn { width: 15px; height: 15px; display: inline-block; vertical-align: -3px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
 @media (max-width: 640px) {
   .row2, .contact-grid { grid-template-columns: 1fr; }
@@ -194,7 +207,7 @@ footer b { color: var(--cn-soft); }
   </div>
 
   <div class="cn-hero">
-    <div class="cn-kicker">✈ <span class="lang-es">Cabin Network</span><span class="lang-en">Cabin Network</span></div>
+    <div class="cn-kicker"><svg class="icn" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg><span class="lang-es">Cabin Network</span><span class="lang-en">Cabin Network</span></div>
     <h1 class="cn-title-main">
       <span class="lang-es">Pisos entre <span>tripulantes</span></span>
       <span class="lang-en">Flatshares for <span>crew</span></span>
@@ -211,23 +224,25 @@ footer b { color: var(--cn-soft); }
 
   <div class="cn-tabs">
     <button class="cn-tab active" data-view="browse" onclick="cnSetView('browse')">
-      <span class="lang-es">🔍 Explorar</span><span class="lang-en">🔍 Browse</span>
+      <svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="lang-es">Explorar</span><span class="lang-en">Browse</span>
     </button>
     <button class="cn-tab" data-view="publish" onclick="cnSetView('publish')">
-      <span class="lang-es">✚ Publicar anuncio</span><span class="lang-en">✚ Post a listing</span>
+      <svg class="icn" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      <span class="lang-es">Publicar anuncio</span><span class="lang-en">Post a listing</span>
     </button>
   </div>
 
   <div id="view-browse">
     <div class="cn-chips" id="typeTabs">
       <div class="cn-chip active" data-type="all"><span class="lang-es">Todos</span><span class="lang-en">All</span></div>
-      <div class="cn-chip" data-type="piso_completo"><span class="lang-es">🏡 Piso completo</span><span class="lang-en">🏡 Whole flat</span></div>
-      <div class="cn-chip" data-type="habitacion_compartida"><span class="lang-es">🛏️ Habitación compartida</span><span class="lang-en">🛏️ Shared room</span></div>
-      <div class="cn-chip" data-type="busco_grupo"><span class="lang-es">🤝 Busco compañeros</span><span class="lang-en">🤝 Looking for flatmates</span></div>
+      <div class="cn-chip" data-type="piso_completo"><svg class="icn" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="lang-es">Piso completo</span><span class="lang-en">Whole flat</span></div>
+      <div class="cn-chip" data-type="habitacion_compartida"><svg class="icn" viewBox="0 0 24 24"><path d="M2 10v9M2 13h20M22 10v9M4 13V7a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v6M13 13V9a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v4"/></svg><span class="lang-es">Habitación compartida</span><span class="lang-en">Shared room</span></div>
+      <div class="cn-chip" data-type="busco_grupo"><svg class="icn" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg><span class="lang-es">Busco compañeros</span><span class="lang-en">Looking for flatmates</span></div>
     </div>
 
     <div class="cn-holding">
-      <div>🤝</div>
+      <svg class="icn" style="width:18px;height:18px;margin-top:2px;color:var(--cn-gold)" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
       <div>
         <b class="lang-es">¿Buscas gente para formar grupo y alquilar juntos?</b><b class="lang-en">Looking for people to team up and rent together?</b>
         <span class="lang-es"> Usa la pestaña "Busco compañeros" — publica tu base, fechas y cuántos tripulantes necesitas para cerrar un piso entre todos.</span>
@@ -236,7 +251,7 @@ footer b { color: var(--cn-soft); }
     </div>
 
     <div class="cn-filters">
-      <input type="text" id="fCity" data-ph-es="🔎 Ciudad o base (ej. Madrid, MAD)" data-ph-en="🔎 City or base (e.g. Madrid, MAD)" placeholder="🔎 Ciudad o base (ej. Madrid, MAD)">
+      <input type="text" id="fCity" data-ph-es="Ciudad o base (ej. Madrid, MAD)" data-ph-en="City or base (e.g. Madrid, MAD)" placeholder="Ciudad o base (ej. Madrid, MAD)">
       <select id="fSort">
         <option value="recent" class="lang-es">Más recientes</option>
         <option value="recent" class="lang-en">Newest</option>
@@ -250,7 +265,7 @@ footer b { color: var(--cn-soft); }
     <div id="listGrid" class="cn-grid"></div>
     <div id="listLoading" class="cn-spinner"></div>
     <div id="listEmpty" class="cn-empty" style="display:none">
-      <div class="big">🏠</div>
+      <div class="big"><svg class="icn" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <span class="lang-es">No hay anuncios activos con esos filtros todavía.<br>¡Sé el primero en publicar!</span>
       <span class="lang-en">No active listings match these filters yet.<br>Be the first to post one!</span>
     </div>
@@ -259,16 +274,16 @@ footer b { color: var(--cn-soft); }
   <div id="view-publish" style="display:none">
     <div class="form-card">
       <h2><span class="lang-es">Publica tu anuncio</span><span class="lang-en">Post your listing</span></h2>
-      
+
       <div class="section-label"><span class="lang-es">Tipo de anuncio</span><span class="lang-en">Listing type</span></div>
       <div class="field">
         <select id="pType">
-          <option value="piso_completo" class="lang-es">🏡 Alquilo piso completo</option>
-          <option value="piso_completo" class="lang-en">🏡 Renting a whole flat</option>
-          <option value="habitacion_compartida" class="lang-es">🛏️ Comparto habitación / plaza libre</option>
-          <option value="habitacion_compartida" class="lang-en">🛏️ Sharing a room / spot available</option>
-          <option value="busco_grupo" class="lang-es">🤝 Busco compañeros para formar grupo</option>
-          <option value="busco_grupo" class="lang-en">🤝 Looking for flatmates to team up</option>
+          <option value="piso_completo" class="lang-es">Alquilo piso completo</option>
+          <option value="piso_completo" class="lang-en">Renting a whole flat</option>
+          <option value="habitacion_compartida" class="lang-es">Comparto habitación / plaza libre</option>
+          <option value="habitacion_compartida" class="lang-en">Sharing a room / spot available</option>
+          <option value="busco_grupo" class="lang-es">Busco compañeros para formar grupo</option>
+          <option value="busco_grupo" class="lang-en">Looking for flatmates to team up</option>
         </select>
       </div>
 
@@ -311,7 +326,7 @@ footer b { color: var(--cn-soft); }
       <div class="section-label"><span class="lang-es">Fotos</span><span class="lang-en">Photos</span></div>
       <div class="field">
         <div class="photo-drop" id="photoDrop">
-          <span class="icon">📷</span>
+          <span class="icon"><svg class="icn" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
           <span class="lang-es">Arrastra tus fotos aquí o toca para subir</span>
           <span class="lang-en">Drag your photos here or tap to upload</span>
           <small><span class="lang-es">Hasta 6 fotos · JPG, PNG o WEBP</span><span class="lang-en">Up to 6 photos · JPG, PNG or WEBP</span></small>
@@ -326,12 +341,12 @@ footer b { color: var(--cn-soft); }
         <div class="field"><label>Telegram (@usuario)</label><input type="text" id="pTelegram" placeholder="@username"></div>
       </div>
       <div class="row2">
-        <div class="field"><label class="lang-es">Email de contacto</label><label class="lang-en">Contact email</label><input type="email" id="pEmail" data-ph-es="opcional" data-ph-en="optional" placeholder="opcional"></div>
+        <div class="field"><label class="lang-es">Email de contacto <span class="req">*</span></label><label class="lang-en">Contact email <span class="req">*</span></label><input type="email" id="pEmail" required data-ph-es="tu@email.com" data-ph-en="your@email.com" placeholder="tu@email.com"></div>
         <div class="field"><label>Teléfono / WhatsApp</label><input type="text" id="pPhone" data-ph-es="opcional" data-ph-en="optional" placeholder="opcional"></div>
       </div>
       <div class="hint">
-        <span class="lang-es">Da al menos un dato de contacto (Telegram, email o teléfono) para que puedan escribirte.</span>
-        <span class="lang-en">Provide at least one contact method (Telegram, email or phone) so people can reach you.</span>
+        <svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span><span class="lang-es">El email es obligatorio: te enviaremos un correo para confirmar y activar tu anuncio. Añade también Telegram o teléfono si quieres que puedan escribirte por ahí.</span><span class="lang-en">Email is required: we'll send you a confirmation email to activate your listing. Add Telegram or phone too if you want people to reach you there.</span></span>
       </div>
 
       <div class="turnstile-wrap"><div class="cf-turnstile" data-sitekey="0x4AAAAAADthE2yE-vOgkXQJ" data-callback="onTurnstileOk" data-expired-callback="onTurnstileExpired"></div></div>
@@ -353,7 +368,7 @@ footer b { color: var(--cn-soft); }
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <button class="modal-close" id="modalClose">✕</button>
+    <button class="modal-close" id="modalClose"><svg class="icn" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     <div class="modal-gallery" id="modalGallery"></div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -372,13 +387,30 @@ new ResizeObserver(reportHeight).observe(document.body);
 window.addEventListener("load", reportHeight);
 setInterval(reportHeight, 1200);
 
+var ICN = {
+  home: '<svg class="icn" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  bed: '<svg class="icn" viewBox="0 0 24 24"><path d="M2 10v9M2 13h20M22 10v9M4 13V7a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v6M13 13V9a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v4"/></svg>',
+  users: '<svg class="icn" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>',
+  pin: '<svg class="icn" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  plane: '<svg class="icn" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>',
+  calendar: '<svg class="icn" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  camera: '<svg class="icn" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  arrow: '<svg class="icn" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  check: '<svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>',
+  alert: '<svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12.5"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  mail: '<svg class="icn" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>',
+  telegram: '<svg class="icn" viewBox="0 0 24 24"><path d="M22 2L2 10l7 2.5M22 2l-4 20-9-6.5M22 2L9.5 15.5"/></svg>',
+  phone: '<svg class="icn" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  airline: '<svg class="icn" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>'
+};
+
 var SORT_OPTS = {
   es: [["recent","Mas recientes"],["price_asc","Precio: menor a mayor"],["price_desc","Precio: mayor a menor"]],
   en: [["recent","Newest"],["price_asc","Price: low to high"],["price_desc","Price: high to low"]]
 };
 var TYPE_OPTS = {
-  es: [["piso_completo","\ud83c\udfe1 Alquilo piso completo"],["habitacion_compartida","\ud83d\udecf\ufe0f Comparto habitacion / plaza libre"],["busco_grupo","\ud83e\udd1d Busco companeros para formar grupo"]],
-  en: [["piso_completo","\ud83c\udfe1 Renting a whole flat"],["habitacion_compartida","\ud83d\udecf\ufe0f Sharing a room / spot available"],["busco_grupo","\ud83e\udd1d Looking for flatmates to team up"]]
+  es: [["piso_completo","Alquilo piso completo"],["habitacion_compartida","Comparto habitacion / plaza libre"],["busco_grupo","Busco companeros para formar grupo"]],
+  en: [["piso_completo","Renting a whole flat"],["habitacion_compartida","Sharing a room / spot available"],["busco_grupo","Looking for flatmates to team up"]]
 };
 function populateSelects(){
   var sortSel = document.getElementById("fSort");
@@ -428,8 +460,8 @@ document.getElementById("fSort").addEventListener("change", loadListings);
 function debounce(fn, ms){ var t; return function(){ var a=arguments; clearTimeout(t); t=setTimeout(function(){fn.apply(null,a);}, ms); }; }
 
 var TYPE_LABELS = {
-  es: { piso_completo:"🏡 Piso completo", habitacion_compartida:"🛏️ Habitación", busco_grupo:"🤝 Busca grupo" },
-  en: { piso_completo:"🏡 Whole flat", habitacion_compartida:"🛏️ Shared room", busco_grupo:"🤝 Looking for flatmates" }
+  es: { piso_completo: ICN.home+" Piso completo", habitacion_compartida: ICN.bed+" Habitación", busco_grupo: ICN.users+" Busca grupo" },
+  en: { piso_completo: ICN.home+" Whole flat", habitacion_compartida: ICN.bed+" Shared room", busco_grupo: ICN.users+" Looking for flatmates" }
 };
 
 async function loadListings(){
@@ -464,23 +496,23 @@ function renderCard(item){
   var photos=item.photos||[];
   var priceTxt = item.price_month ? (item.price_month+"<small>€"+(lang==="es"?"/mes":"/mo")+"</small>") : ("<small>"+(lang==="es"?"Precio a consultar":"Price on request")+"</small>");
   var metaBits=[];
-  if(item.listing_type==="busco_grupo" && item.roommates_looking) metaBits.push((lang==="es"?"👥 Buscan ":"👥 Looking for ")+item.roommates_looking+(lang==="es"?" más":" more"));
-  if(item.rooms_available) metaBits.push("🛏 "+item.rooms_available+(lang==="es"?" libre(s)":" free"));
-  if(item.move_in_date) metaBits.push("📅 "+item.move_in_date);
-  if(item.base_airport) metaBits.push("✈ "+item.base_airport);
-  var photoInner = photos.length ? ('<img src="'+photos[0]+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">') : '<div class="noimg">🏠</div>';
+  if(item.listing_type==="busco_grupo" && item.roommates_looking) metaBits.push(ICN.users+" "+(lang==="es"?"Buscan ":"Looking for ")+item.roommates_looking+(lang==="es"?" más":" more"));
+  if(item.rooms_available) metaBits.push(ICN.bed+" "+item.rooms_available+(lang==="es"?" libre(s)":" free"));
+  if(item.move_in_date) metaBits.push(ICN.calendar+" "+item.move_in_date);
+  if(item.base_airport) metaBits.push(ICN.plane+" "+item.base_airport);
+  var photoInner = photos.length ? ('<img src="'+photos[0]+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">') : ('<div class="noimg">'+ICN.home.replace('class="icn"','class="icn" style="width:38px;height:38px"')+'</div>');
   card.innerHTML =
     '<div class="jc-photo">'+photoInner+
       '<span class="badge">'+(TYPE_LABELS[lang][item.listing_type]||"")+'</span>'+
-      (photos.length>1 ? '<span class="pcount">📷 '+photos.length+'</span>' : '')+
+      (photos.length>1 ? '<span class="pcount">'+ICN.camera+' '+photos.length+'</span>' : '')+
     '</div>'+
     '<div class="jc-body">'+
       '<h3>'+escapeHtml(item.title)+'</h3>'+
-      '<div class="jc-city">📍 '+escapeHtml(item.city)+(item.country && item.country!=="Spain" ? ", "+escapeHtml(item.country):"")+'</div>'+
+      '<div class="jc-city">'+ICN.pin+' '+escapeHtml(item.city)+(item.country && item.country!=="Spain" ? ", "+escapeHtml(item.country):"")+'</div>'+
       '<div class="jc-price">'+priceTxt+'</div>'+
-      '<div class="jc-meta">'+metaBits.map(function(m){return '<span>'+escapeHtml(m)+'</span>';}).join("")+'</div>'+
+      '<div class="jc-meta">'+metaBits.map(function(m){return '<span>'+m+'</span>';}).join("")+'</div>'+
       '<div class="jc-desc">'+escapeHtml((item.description||"").slice(0,110))+((item.description||"").length>110?"…":"")+'</div>'+
-      '<button class="jc-btn">'+(lang==="es"?"Ver detalles y contacto":"View details & contact")+'</button>'+
+      '<button class="jc-btn">'+(lang==="es"?"Ver detalles y contacto":"View details & contact")+' '+ICN.arrow+'</button>'+
     '</div>';
   card.addEventListener("click", function(){ openModal(item); });
   return card;
@@ -499,22 +531,22 @@ function openModal(item){
     ? {name:"Nombre", tg:"Telegram", email:"Email", phone:"Teléfono / WhatsApp", airline:"Aerolínea", none:"Sin datos de contacto públicos."}
     : {name:"Name", tg:"Telegram", email:"Email", phone:"Phone / WhatsApp", airline:"Airline", none:"No public contact details."};
   var contacts=[
-    {lbl:LBL.name,val:item.contact_name},
-    {lbl:LBL.tg,val:item.contact_telegram},
-    {lbl:LBL.email,val:item.contact_email},
-    {lbl:LBL.phone,val:item.contact_phone},
-    {lbl:LBL.airline,val:item.airline_company}
+    {lbl:LBL.name,val:item.contact_name,icn:ICN.users},
+    {lbl:LBL.tg,val:item.contact_telegram,icn:ICN.telegram},
+    {lbl:LBL.email,val:item.contact_email,icn:ICN.mail},
+    {lbl:LBL.phone,val:item.contact_phone,icn:ICN.phone},
+    {lbl:LBL.airline,val:item.airline_company,icn:ICN.airline}
   ].filter(function(c){return c.val;});
   var contactHtml = contacts.length===0
     ? '<div class="contact-item full"><div class="val">'+LBL.none+'</div></div>'
-    : contacts.map(function(c){return '<div class="contact-item"><div class="lbl">'+c.lbl+'</div><div class="val">'+escapeHtml(c.val)+'</div></div>';}).join("");
+    : contacts.map(function(c){return '<div class="contact-item"><div class="lbl">'+c.icn+' '+c.lbl+'</div><div class="val">'+escapeHtml(c.val)+'</div></div>';}).join("");
   var metaLine=[];
   if(item.rooms_available) metaLine.push(item.rooms_available+(lang==="es"?" plaza(s) libre(s)":" spot(s) free"));
   if(item.roommates_looking) metaLine.push((lang==="es"?"buscan "+item.roommates_looking+" compañero(s) más":"looking for "+item.roommates_looking+" more flatmate(s)"));
   if(item.move_in_date) metaLine.push((lang==="es"?"entrada ":"move-in ")+item.move_in_date);
   if(item.min_stay_months) metaLine.push((lang==="es"?"estancia mín. ":"min. stay ")+item.min_stay_months+(lang==="es"?" meses":" months"));
   document.getElementById("modalBody").innerHTML =
-    '<div class="mtype">'+(TYPE_LABELS[lang][item.listing_type]||"")+' · 📍 '+escapeHtml(item.city)+(item.base_airport?" ("+escapeHtml(item.base_airport)+")":"")+'</div>'+
+    '<div class="mtype">'+(TYPE_LABELS[lang][item.listing_type]||"")+' · '+ICN.pin+' '+escapeHtml(item.city)+(item.base_airport?" ("+escapeHtml(item.base_airport)+")":"")+'</div>'+
     '<h3>'+escapeHtml(item.title)+'</h3>'+
     '<div class="mprice">'+(item.price_month ? item.price_month+"€"+(lang==="es"?"/mes":"/mo") : (lang==="es"?"Precio a consultar":"Price on request"))+'</div>'+
     (metaLine.length ? '<div class="hint" style="margin-bottom:14px">'+metaLine.join(" · ")+'</div>' : '')+
@@ -525,9 +557,9 @@ function openModal(item){
 
 function renderGallery(){
   var g=document.getElementById("modalGallery");
-  if(modalPhotos.length===0){ g.innerHTML='<div class="noimg">🏠</div>'; return; }
+  if(modalPhotos.length===0){ g.innerHTML='<div class="noimg">'+ICN.home+'</div>'; return; }
   g.innerHTML = '<img src="'+modalPhotos[modalIdx]+'" alt="">'+
-    (modalPhotos.length>1 ? '<button class="gnav prev">‹</button><button class="gnav next">›</button><div class="gdots">'+modalPhotos.map(function(_,i){return '<span class="'+(i===modalIdx?'on':'')+'"></span>';}).join("")+'</div>' : '');
+    (modalPhotos.length>1 ? '<button class="gnav prev"><svg class="icn" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><button class="gnav next"><svg class="icn" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button><div class="gdots">'+modalPhotos.map(function(_,i){return '<span class="'+(i===modalIdx?'on':'')+'"></span>';}).join("")+'</div>' : '');
   if(modalPhotos.length>1){
     g.querySelector(".prev").addEventListener("click", function(e){e.stopPropagation(); modalIdx=(modalIdx-1+modalPhotos.length)%modalPhotos.length; renderGallery();});
     g.querySelector(".next").addEventListener("click", function(e){e.stopPropagation(); modalIdx=(modalIdx+1)%modalPhotos.length; renderGallery();});
@@ -610,9 +642,10 @@ document.getElementById("submitBtn").addEventListener("click", async function(){
   var msg=document.getElementById("formMsg");
   msg.className="msg"; msg.style.display="none";
   if(uploadedPhotos.some(function(p){return p.uploading;})){
-    msg.className="msg err"; msg.textContent = lang==="es"?"Espera a que terminen de subirse las fotos.":"Wait for the photos to finish uploading."; msg.style.display="block"; reportHeight();
+    msg.className="msg err"; msg.innerHTML = ICN.alert+' <span>'+(lang==="es"?"Espera a que terminen de subirse las fotos.":"Wait for the photos to finish uploading.")+'</span>'; msg.style.display="flex"; reportHeight();
     return;
   }
+  var emailVal = document.getElementById("pEmail").value.trim();
   var payload={
     turnstile_token: turnstileToken,
     listing_type: document.getElementById("pType").value,
@@ -629,12 +662,13 @@ document.getElementById("submitBtn").addEventListener("click", async function(){
     photos: uploadedPhotos.filter(function(p){return p.url;}).map(function(p){return p.url;}),
     contact_name: document.getElementById("pName").value.trim(),
     contact_telegram: document.getElementById("pTelegram").value.trim(),
-    contact_email: document.getElementById("pEmail").value.trim(),
+    contact_email: emailVal,
     contact_phone: document.getElementById("pPhone").value.trim()
   };
-  if(!payload.title || !payload.city){ msg.className="msg err"; msg.textContent = lang==="es"?"Rellena al menos título y ciudad.":"Fill in at least title and city."; msg.style.display="block"; reportHeight(); return; }
-  if(!payload.contact_telegram && !payload.contact_email && !payload.contact_phone){ msg.className="msg err"; msg.textContent = lang==="es"?"Añade al menos un dato de contacto.":"Add at least one contact method."; msg.style.display="block"; reportHeight(); return; }
-  if(!turnstileToken){ msg.className="msg err"; msg.textContent = lang==="es"?"Verifica el captcha primero.":"Verify the captcha first."; msg.style.display="block"; reportHeight(); return; }
+  if(!payload.title || !payload.city){ msg.className="msg err"; msg.innerHTML = ICN.alert+' <span>'+(lang==="es"?"Rellena al menos título y ciudad.":"Fill in at least title and city.")+'</span>'; msg.style.display="flex"; reportHeight(); return; }
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailVal || !emailRegex.test(emailVal)){ msg.className="msg err"; msg.innerHTML = ICN.alert+' <span>'+(lang==="es"?"Introduce un email válido: lo necesitamos para confirmar tu anuncio.":"Enter a valid email: we need it to confirm your listing.")+'</span>'; msg.style.display="flex"; reportHeight(); return; }
+  if(!turnstileToken){ msg.className="msg err"; msg.innerHTML = ICN.alert+' <span>'+(lang==="es"?"Verifica el captcha primero.":"Verify the captcha first.")+'</span>'; msg.style.display="flex"; reportHeight(); return; }
   var btn=document.getElementById("submitBtn");
   btn.disabled=true; btn.textContent = lang==="es"?"Publicando...":"Publishing...";
   try{
@@ -645,14 +679,17 @@ document.getElementById("submitBtn").addEventListener("click", async function(){
     });
     var result = await resp.json();
     if(!resp.ok || result.error){ throw new Error(result.error || "unknown error"); }
-    msg.className="msg ok"; msg.textContent = lang==="es"?"¡Anuncio publicado! Ya aparece en Explorar.":"Listing published! It now shows up in Browse.";
-    msg.style.display="block";
+    msg.className="msg ok";
+    msg.innerHTML = ICN.mail+' <span>'+(lang==="es"?"¡Casi listo! Te hemos enviado un email a "+escapeHtml(emailVal)+" — pulsa el enlace de confirmación para publicar tu anuncio.":"Almost done! We sent an email to "+escapeHtml(emailVal)+" — click the confirmation link to publish your listing.")+'</span>';
+    msg.style.display="flex";
     document.querySelectorAll(".form-card input, .form-card textarea").forEach(function(el){el.value="";});
     uploadedPhotos=[]; renderThumbs();
-    document.querySelector('.cn-tab[data-view="browse"]').click();
-    loadListings();
+    btn.disabled=true;
+    btn.innerHTML = '<span class="lang-'+lang+'" style="display:inline">'+(lang==="es"?"Anuncio enviado":"Listing submitted")+'</span>';
+    if(window.turnstile) turnstile.reset();
+    turnstileToken=null;
   }catch(err){
-    msg.className="msg err"; msg.textContent = (lang==="es"?"No se pudo publicar: ":"Could not publish: ") + err.message; msg.style.display="block";
+    msg.className="msg err"; msg.innerHTML = ICN.alert+' <span>'+(lang==="es"?"No se pudo publicar: ":"Could not publish: ") + err.message+'</span>'; msg.style.display="flex";
     btn.disabled=false; btn.textContent = lang==="es"?"Publicar anuncio":"Publish listing";
     if(window.turnstile) turnstile.reset();
     turnstileToken=null;
