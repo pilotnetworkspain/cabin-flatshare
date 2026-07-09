@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirmando anuncio... - Cabin Network</title>
+<style>
+  html,body{margin:0;padding:0;background:#050308;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;
+    background:radial-gradient(circle at 50% 0%, rgba(157,91,255,.25), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,109,214,.12), transparent 35%), #050308;}
+  .card{max-width:440px;width:100%;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:44px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .icon{margin-bottom:20px;}
+  h1{color:#fff;font-size:22px;margin:0 0 12px;letter-spacing:-.3px;}
+  p{color:#a8b4c8;font-size:14.5px;line-height:1.7;margin:0 0 6px;}
+  a.btn{display:inline-block;margin-top:22px;background:linear-gradient(135deg,#5b9dff,#d06dff);color:#fff;text-decoration:none;font-weight:900;font-size:13.5px;padding:12px 26px;border-radius:999px;}
+  .brand{color:#6b7385;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;margin-bottom:18px;}
+  .spin{width:40px;height:40px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:#5b9dff;animation:sp 0.8s linear infinite;margin:0 auto 20px;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="brand">Cabin Network</div>
+      <div class="icon"><div class="spin"></div></div>
+      <h1 id="heading">Confirmando tu anuncio...</h1>
+      <p id="message">Un momento, por favor. / One moment, please.</p>
+    </div>
+  </div>
+<script>
+(function(){
+  var ICON_OK = '<svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#4ade80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>';
+  var ICON_ERR = '<svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#ff6b6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>';
+  var params = new URLSearchParams(location.search);
+  var token = params.get('token');
+  var card = document.getElementById('card');
+  var heading = document.getElementById('heading');
+  var message = document.getElementById('message');
+  var iconEl = document.querySelector('.icon');
+
+  function render(ok, headingText, messageText, showBtn){
+    iconEl.innerHTML = ok ? ICON_OK : ICON_ERR;
+    heading.textContent = headingText;
+    message.innerHTML = messageText;
+    if (showBtn) {
+      var btn = document.createElement('a');
+      btn.className = 'btn';
+      btn.href = 'https://www.cabin-network.com/cabin-crew-appartments';
+      btn.textContent = 'Ir al listado';
+      card.appendChild(btn);
+    }
+  }
+
+  if (!token) {
+    render(false, 'Enlace inválido / Invalid link', 'Falta el token de confirmación. / Missing confirmation token.', false);
+    return;
+  }
+
+  fetch('https://ifbpbtyifiuhzyeifhea.supabase.co/functions/v1/flatshare-confirm?token=' + encodeURIComponent(token))
+    .then(function(r){ return r.json().then(function(data){ return {status:r.status, data:data}; }); })
+    .then(function(res){
+      var d = res.data;
+      if (d.ok && d.code === 'confirmed') {
+        render(true, '¡Anuncio publicado con éxito!', '"' + d.title + '" ' + d.message, true);
+      } else if (d.ok && d.code === 'already_confirmed') {
+        render(true, 'Tu anuncio ya estaba confirmado', '"' + d.title + '" ' + d.message, true);
+      } else if (d.code === 'not_found') {
+        render(false, 'Enlace no válido o ya usado', 'Este enlace de confirmación no existe o ya fue utilizado. / This confirmation link is invalid or has already been used.', false);
+      } else {
+        render(false, 'No se pudo confirmar', d.message || 'Ha ocurrido un error. Inténtalo de nuevo más tarde.', false);
+      }
+    })
+    .catch(function(){
+      render(false, 'Error de conexión', 'No se pudo contactar con el servidor. Inténtalo de nuevo más tarde. / Could not reach the server. Please try again later.', false);
+    });
+})();
+</script>
+</body>
+</html>
